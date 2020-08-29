@@ -3,14 +3,13 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Student;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,10 +19,12 @@ public class UserController {
 
     private UserRepository userRepository;
 
+
     @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     @GetMapping("signup")
     public String showSignUpForm(User user){
