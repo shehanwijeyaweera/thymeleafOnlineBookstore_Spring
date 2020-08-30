@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head th:fragment="html_head">
     <meta charset="utf-8">
@@ -65,6 +65,11 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="nav navbar-nav mr-sm-2">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </form>
 
     </div>
 </nav>

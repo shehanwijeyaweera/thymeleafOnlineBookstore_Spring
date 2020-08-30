@@ -2,9 +2,10 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
 
     @Id
@@ -17,12 +18,20 @@ public class User {
     private String user_email;
     private int user_phoneNo;
     private String user_address;
-    private String userRole;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> userRole;
 
     public User() {
     }
 
-    public User(String username, String password, String user_fName, String user_lName, String user_email, int user_phoneNo, String user_address, String userRole) {
+    public User(String username, String password, String user_fName, String user_lName, String user_email, int user_phoneNo, String user_address, Collection<Role> userRole) {
         this.username = username;
         this.password = password;
         this.user_fName = user_fName;
@@ -32,8 +41,6 @@ public class User {
         this.user_address = user_address;
         this.userRole = userRole;
     }
-
-
 
     public Long getId() {
         return id;
@@ -99,12 +106,11 @@ public class User {
         this.user_address = user_address;
     }
 
-    public String getUserRole() {
+    public Collection<Role> getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(Collection<Role> userRole) {
         this.userRole = userRole;
     }
-
 }
