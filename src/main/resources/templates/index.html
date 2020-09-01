@@ -11,7 +11,20 @@
 
 
 <div class="container">
-    <h1>Welcome, <span sec:authentication="principal.username"></span></h1>
+    <h1>Welcome, User: <span sec:authentication="principal.username"></span>...Role:<span sec:authentication="principal.authorities"></span></h1>
+    <div sec:authorize="hasAuthority('Admin')">
+        <h3>You will see this only if you are Admin</h3>
+        <p>
+           <a>Admin Home</a>
+        </p>
+    </div>
+
+    <div sec:authorize="hasAuthority('User')">
+        <h3>You will see this only if you are User</h3>
+        <p>
+            <a>Admin Home</a>
+        </p>
+    </div>
 </div>
 
 <!--footer-->
