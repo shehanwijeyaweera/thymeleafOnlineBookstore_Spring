@@ -74,6 +74,11 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());
+        return "index-user";
+    }
+
+    @GetMapping("adminhome")
+    public String login(){
         return "index";
     }
 }

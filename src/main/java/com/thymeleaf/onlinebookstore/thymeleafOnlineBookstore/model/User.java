@@ -1,8 +1,9 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
@@ -27,6 +28,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> userRole;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "complaint_fid", referencedColumnName = "id")
+    private List<Complaint> complaints = new ArrayList<>();
 
     public User() {
     }
