@@ -3,6 +3,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class AdminBookController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private BookService bookService;
 
     //display list of Authors
     @GetMapping("authors")
@@ -99,4 +103,16 @@ public class AdminBookController {
 
         return "redirect:/adminbook/category?successdelete";
     }
+
+    //display list of books
+    @GetMapping("book")
+    public String ViewAllBooks(Model model){
+        model.addAttribute("listBooks", bookService.getAllBooks());
+        model.addAttribute("listCategories", categoryService.getAllCategories());
+        model.addAttribute("listAuthors", authorService.getAllAuthors());
+        return "view-book";
+    }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,20 +18,18 @@ public class Book {
     private String description;
     private BigDecimal price;
     private String publisher;
-    private Date pubdate;
-    private String author;
+    private LocalDate pubdate;
 
     public Book() {
     }
 
-    public Book(int ISBN, String title, String description, BigDecimal price, String publisher, Date pubdate, String author) {
+    public Book(int ISBN, String title, String description, BigDecimal price, String publisher, LocalDate pubdate) {
         this.ISBN = ISBN;
         this.title = title;
         this.description = description;
         this.price = price;
         this.publisher = publisher;
         this.pubdate = pubdate;
-        this.author = author;
     }
 
     public Long getBookId() {
@@ -81,19 +80,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Date getPubdate() {
+    public LocalDate getPubdate() {
         return pubdate;
     }
 
-    public void setPubdate(Date pubdate) {
+    public void setPubdate(LocalDate pubdate) {
         this.pubdate = pubdate;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }
