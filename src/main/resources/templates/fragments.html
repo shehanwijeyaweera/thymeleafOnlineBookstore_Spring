@@ -68,8 +68,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Add a new Book</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">View All books</a>
-                    <a class="dropdown-item" href="#">Manage Categories</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{/adminbook/category}">Manage Categories</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" th:href="@{/adminbook/authors}">Manage Authors</a>
                 </div>

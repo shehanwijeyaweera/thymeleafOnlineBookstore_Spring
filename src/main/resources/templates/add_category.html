@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head" />
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar" />
+
+<div class="container">
+    <h2>Add new Category</h2>
+
+    <form action="#" th:action="@{/adminbook/saveCategory}" th:object="${category}" method="post">
+        <input type="text" th:field="*{category_name}" placeholder="Category Name" class="form-control mb-4">
+
+
+        <button type="submit" class="btn btn-info col-2">Save Category</button>
+    </form>
+</div>
+
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>
