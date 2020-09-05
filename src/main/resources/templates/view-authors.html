@@ -9,19 +9,32 @@
 <!--navbar-->
 <nav th:replace="fragments :: html_navbar" />
 
-<div align="center" justify-content-center>
+<div class="container my-2" align="center">
     <h1>Author List</h1>
-    <table class="table table-striped table-dark col-md-6" >
+    <div th:if="${param.success}">
+        <div class = "alert alert-info">New Author Successfully Added!</div>
+    </div>
+    <div th:if="${param.successdelete}">
+        <div class = "alert alert-warning"> Author Successfully Deleted!</div>
+    </div>
+    <div>
+        <a th:href="@{/adminbook/showNewAuthorForm}" class="btn btn-primary btn-sm mb-3">Add Author</a>
+    </div>
+    <table class="table table-striped table-dark table-responsive-md col-md-6" >
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Author Name</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="author : ${listAuthors}">
                 <td th:text="${author.author_id}"></td>
                 <td th:text="${author.author_name}"></td>
+                <td> <a th:href="@{/adminbook/showFormUpdate/{author_id}(author_id=${author.author_id})}" class="btn btn-primary">Edit</a>
+                     <a th:href="@{/adminbook/deleteAuthor/{author_id}(author_id=${author.author_id})}" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>

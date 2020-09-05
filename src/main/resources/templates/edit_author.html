@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head" />
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar" />
+
+<div class="container">
+    <h2>Edit Author</h2>
+
+    <form action="#" th:action="@{/adminbook/saveAuthor}" th:object="${author}" method="post">
+<!--        Added hidden input to handle edit function-->
+        <input type="hidden" th:field="*{author_id}" />
+
+        <input type="text" th:field="*{author_name}" placeholder="Author Full Name" class="form-control mb-4">
+
+
+        <button type="submit" class="btn btn-info col-2">Update Author</button>
+    </form>
+</div>
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>
