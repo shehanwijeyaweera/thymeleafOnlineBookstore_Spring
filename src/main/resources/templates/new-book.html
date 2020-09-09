@@ -13,6 +13,9 @@
     <div class="header">
         <h4 class="title">Add new Book</h4>
         <p class="category">fill out & click save</p>
+        <div>
+            <a th:href="@{/adminbook/book}" class="btn btn-primary btn-sm mb-3">Back</a>
+        </div>
     </div>
 
     <div class="card">
@@ -39,11 +42,12 @@
                     </div>
                     <div class="form-group">
                         <label for="title">Publisher</label>
-                        <input type="text" class="form-control" id="publisher" aria-describedby="ISBN" th:field="*{publisher}"
+                        <input type="text" class="form-control" id="publisher" aria-describedby="ISBN"
+                               th:field="*{publisher}"
                                playeholder="Harry Potter and the Deathly Hollows">
                     </div>
                     <div class="form-group">
-                        <label for="category">Category</label>
+                        <label for="category">Category(You can select multiple)</label>
                         <select id="category" class="form-control" th:field="*{categories}" multiple="multiple">
                             <option th:each="category : ${categories}" th:text="${category.category_name}"
                                     th:value="${category.category_id}"></option>
@@ -58,7 +62,8 @@
                     </div>
                     <div class="form-group">
                         <label for="date">Published date</label>
-                        <input type="text" class="form-control" id="date" th:field="*{pubdate}"/>
+                        <input type="text" class="form-control" id="date" data-provide="datepicker"
+                               th:field="*{pubdate}"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
@@ -70,8 +75,9 @@
             </div>
         </div>
     </div>
-    <!--footer-->
-    <div th:replace="fragments :: html_footer"/>
+</div>
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
 
 </body>
 

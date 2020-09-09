@@ -16,55 +16,55 @@
             <h4 th:text="${book.title}" class="title">Edit Book</h4>
             <p class="category">Details</p>
         </div>
-        <div align="center">
+        <form>
 
-            <div class="row">
-                <div class="form-group">
-                    <label>ISBN:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">ISBN:</label>
+                <div class="col-md-6">
                     <p th:text="${book.ISBN}"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Description:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Description:</label>
+                <div class="col-md-6">
                     <p th:text="${book.description}"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Price:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Price:</label>
+                <div class="col-md-6">
                     <p th:text="${book.price}"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Publisher:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Publisher:</label>
+                <div class="col-md-6">
                     <p th:text="${book.publisher}"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Published Date:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Published Date:</label>
+                <div class="col-md-6">
                     <p th:text="${book.pubdate}"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Category:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Category:</label>
+                <div class="col-md-6">
                     <th:block th:each="category : ${book.categories}">
                         <p th:text="${category.category_name}"></p>
                     </th:block>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Author:</label>
+            <div class="form-group row">
+                    <label class="col-md-2 offset-4 col-form-label">Author:</label>
+                <div class="col-md-6">
                     <th:block th:each="author : ${book.authors}">
                         <p th:text="${author.author_name}"></p>
                     </th:block>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
 </div>

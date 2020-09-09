@@ -30,6 +30,9 @@
             color: white;
             text-align: center;
         }
+        body{
+            background-color:grey;
+        }
     </style>
 
     <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
@@ -67,7 +70,7 @@
                     Manage Books
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Add a new Book</a>
+                    <a class="dropdown-item" th:href="@{/adminbook/book/create}">Add a new Book</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" th:href="@{/adminbook/book}">View All books</a>
                     <div class="dropdown-divider"></div>
