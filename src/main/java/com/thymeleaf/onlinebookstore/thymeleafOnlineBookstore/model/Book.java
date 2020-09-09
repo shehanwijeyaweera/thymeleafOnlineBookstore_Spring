@@ -1,9 +1,12 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Book")
@@ -18,19 +21,26 @@ public class Book {
     private String description;
     private BigDecimal price;
     private String publisher;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pubdate;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "book_category",
+            joinColumns = { @JoinColumn(name = "bookId")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private Set<Category> categories = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "book_author",
+            joinColumns = { @JoinColumn(name = "bookId")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id")}
+    )
+    private Set<Author> authors = new HashSet<>();
 
     public Book() {
     }
 
-    public Book(int ISBN, String title, String description, BigDecimal price, String publisher, LocalDate pubdate) {
-        this.ISBN = ISBN;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.publisher = publisher;
-        this.pubdate = pubdate;
-    }
 
     public Long getBookId() {
         return bookId;
@@ -88,4 +98,19 @@ public class Book {
         this.pubdate = pubdate;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
 }

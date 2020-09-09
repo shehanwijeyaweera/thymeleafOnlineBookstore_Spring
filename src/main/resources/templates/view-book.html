@@ -19,7 +19,7 @@
         <div class = "alert alert-warning"> Book Successfully Deleted!</div>
     </div>
     <div>
-        <a th:href="@{/adminbook/showNewAuthorForm}" class="btn btn-primary btn-sm mb-3">Add Book</a>
+        <a th:href="@{/adminbook/book/create}" class="btn btn-primary btn-sm mb-3">Add Book</a>
     </div>
     <table class="table table-striped table-dark table-responsive-md col-md-10" >
         <thead>
@@ -45,8 +45,17 @@
             <td th:text="${book.price}"></td>
             <td th:text="${book.publisher}"></td>
             <td th:text="${book.pubdate}"></td>
-            <td th:each="author : ${listAuthors}" th:if="(${author.author_id} == ${book.bookId})" th:text="${author.author_name}"></td>
-            <td th:each="category : ${listCategories}" th:if="(${category.category_id} == ${book.bookId})" th:text="${category.category_name}"></td>
+            <td>
+                <th:block th:each="author : ${book.authors}" >
+                    <span th:text="${author.author_name} + ' '">Item description here...</span>
+                </th:block>
+            </td>
+            <td>
+                <th:block th:each="category : ${book.categories}" >
+                    <span th:text="${category.category_name} + ' '">Item description here...</span>
+                </th:block>
+            </td>
+            <td><a th:href="@{'/adminbook/show/' + ${book.bookId}}" class="btn btn-primary">View</a></td>
 <!--            <td> <a th:href="@{/adminbook/showFormUpdate/{author_id}(author_id=${author.author_id})}" class="btn btn-primary">Edit</a>-->
 <!--                <a th:href="@{/adminbook/deleteAuthor/{author_id}(author_id=${author.author_id})}" class="btn btn-danger">Delete</a>-->
 <!--            </td>-->

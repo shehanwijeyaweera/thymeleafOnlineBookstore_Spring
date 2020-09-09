@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head"/>
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar"/>
+
+<div class="container my-2" align="center">
+
+    <div class="card">
+        <div class="header">
+            <h4 th:text="${book.title}" class="title">Edit Book</h4>
+            <p class="category">Details</p>
+        </div>
+        <div align="center">
+
+            <div class="row">
+                <div class="form-group">
+                    <label>ISBN:</label>
+                    <p th:text="${book.ISBN}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Description:</label>
+                    <p th:text="${book.description}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Price:</label>
+                    <p th:text="${book.price}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Publisher:</label>
+                    <p th:text="${book.publisher}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Published Date:</label>
+                    <p th:text="${book.pubdate}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Category:</label>
+                    <th:block th:each="category : ${book.categories}">
+                        <p th:text="${category.category_name}"></p>
+                    </th:block>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Author:</label>
+                    <th:block th:each="author : ${book.authors}">
+                        <p th:text="${author.author_name}"></p>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>

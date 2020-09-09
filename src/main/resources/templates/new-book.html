@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head"/>
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar"/>
+
+<div class="container my-5">
+    <div class="header">
+        <h4 class="title">Add new Book</h4>
+        <p class="category">fill out & click save</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form th:object="${book}" th:action="@{/adminbook/book/create}" th:method="post">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" th:field="*{bookId}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" aria-describedby="title" th:field="*{title}"
+                               playeholder="Harry Potter and the Deathly Hollows">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">ISBN</label>
+                        <input type="text" class="form-control" id="ISBN" aria-describedby="ISBN" th:field="*{ISBN}"
+                               playeholder="Harry Potter and the Deathly Hollows">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Price</label>
+                        <input type="text" class="form-control" id="price" aria-describedby="ISBN" th:field="*{price}"
+                               playeholder="Harry Potter and the Deathly Hollows">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Publisher</label>
+                        <input type="text" class="form-control" id="publisher" aria-describedby="ISBN" th:field="*{publisher}"
+                               playeholder="Harry Potter and the Deathly Hollows">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" class="form-control" th:field="*{categories}" multiple="multiple">
+                            <option th:each="category : ${categories}" th:text="${category.category_name}"
+                                    th:value="${category.category_id}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Category</label>
+                        <select id="author" class="form-control" th:field="*{authors}" multiple="multiple">
+                            <option th:each="author : ${authors}" th:text="${author.author_name}"
+                                    th:value="${author.author_id}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Published date</label>
+                        <input type="text" class="form-control" id="date" th:field="*{pubdate}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea rows="4" type="textarea" class="form-control" id="description"
+                                  th:field="*{description}" playeholder="type here ..."/></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary offset-6">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>

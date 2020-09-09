@@ -1,6 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/adminbook/")
@@ -113,6 +117,27 @@ public class AdminBookController {
         return "view-book";
     }
 
+    //show a single book details
+    @RequestMapping("show/{book_id}")
+    public String showSingleBook(@PathVariable("book_id")long book_id, Model model){
+        Book book = bookService.findById(book_id);
+        model.addAttribute("book", book);
+        return "showSingleBookById";
+    }
 
+    @RequestMapping("book/create")
+    public String newBookForm(Model model){
+        model.addAttribute("book", new Book());
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
+        List<Author> authors = authorService.getAllAuthors();
+        model.addAttribute("authors", authors);
+        return "new-book";
+    }
 
+    @PostMapping("book/create")
+    public String saveNewBook(@ModelAttribute("book") Book book){
+        long id = bookService.create(book);
+        return "redirect:/adminbook/book";
+    }
 }

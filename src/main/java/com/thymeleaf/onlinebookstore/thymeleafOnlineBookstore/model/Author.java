@@ -3,6 +3,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -12,14 +13,13 @@ public class Author {
     private Long author_id;
     private String author_name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_fid", referencedColumnName = "author_id")
-    private List<Book> books = new ArrayList<>();
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
 
     public Author() {
     }
 
-    public Author(String author_name, List<Book> books) {
+    public Author(String author_name, Set<Book> books) {
         this.author_name = author_name;
         this.books = books;
     }
@@ -40,11 +40,11 @@ public class Author {
         this.author_name = author_name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 }
