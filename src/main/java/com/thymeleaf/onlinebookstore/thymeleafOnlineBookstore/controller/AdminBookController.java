@@ -120,7 +120,7 @@ public class AdminBookController {
     //display list of books
     @GetMapping("book")
     public String ViewAllBooks(Model model){
-       return findPaginated(1, model);
+       return findPaginated(1, "title", "asc", model);
     }
 
     //show a single book details
@@ -168,18 +168,23 @@ public class AdminBookController {
     }
 
     @GetMapping("page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField ,@RequestParam("sortDir") String sortDir, Model model){
         int pageSize = 5;
 
         model.addAttribute("listCategories", categoryService.getAllCategories());
         model.addAttribute("listAuthors", authorService.getAllAuthors());
 
-        Page<Book> page = bookService.findPaginated(pageNo, pageSize);
+        Page<Book> page = bookService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Book> listBooks = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         model.addAttribute("listBooks", listBooks);
 
         return "view-book";

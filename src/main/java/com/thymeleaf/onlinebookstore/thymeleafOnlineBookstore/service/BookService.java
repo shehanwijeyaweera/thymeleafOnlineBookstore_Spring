@@ -13,5 +13,5 @@ public interface BookService {
     Long create(Book bookDetails);
     void update(Long bookId, Book bookDetails);
     void delete(Long bookId);
-    Page<Book> findPaginated(int pageNo, int pageSize);
+    Page<Book> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }
