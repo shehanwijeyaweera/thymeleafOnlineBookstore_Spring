@@ -21,7 +21,8 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form th:object="${book}" th:action="@{/adminbook/book/create}" th:method="post">
+                <form th:object="${book}" th:action="@{/adminbook/book/create}" th:method="post"
+                enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" class="form-control" th:field="*{bookId}"/>
                     </div>
@@ -45,6 +46,13 @@
                         <input type="text" class="form-control" id="publisher" aria-describedby="ISBN"
                                th:field="*{publisher}"
                                playeholder="Harry Potter and the Deathly Hollows">
+                    </div>
+                    <div class="form-group">
+                        <label>Item Logo: </label>
+                        <input type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg"/>
+                    </div>
+                    <div class="form-group">
+                        <img id="thumbnail" alt="Logo Preview" height="100px" width="100px">
                     </div>
                     <div class="form-group">
                         <label for="category">Category(You can select multiple)</label>
@@ -78,7 +86,24 @@
 </div>
 <!--footer-->
 <div th:replace="fragments :: html_footer"/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fileImage').change(function () {
+            showImageThumbnail(this);
+        })
+    })
 
+    function showImageThumbnail(fileInput) {
+        file = fileInput.files[0];
+        reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#thumbnail').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(file);
+    }
+</script>
 </body>
 
 </html>

@@ -25,6 +25,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Logo</th>
             <th>Title</th>
             <th>ISBN</th>
             <th>description</th>
@@ -39,6 +40,7 @@
         <tbody>
         <tr th:each="book : ${listBooks}">
             <td th:text="${book.bookId}"></td>
+            <td><img th:src="@{${book.LogoImagePath}}" height="50px" width="50px"></td>
             <td th:text="${book.title}"></td>
             <td th:text="${book.ISBN}"></td>
             <td th:text="${book.description}"></td>

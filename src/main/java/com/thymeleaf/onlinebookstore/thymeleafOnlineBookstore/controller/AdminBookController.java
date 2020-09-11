@@ -9,8 +9,16 @@ import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategorySe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Set;
 
@@ -136,8 +144,28 @@ public class AdminBookController {
     }
 
     @PostMapping("book/create")
-    public String saveNewBook(@ModelAttribute("book") Book book){
+    public String saveNewBook(@ModelAttribute("book") Book book, @RequestParam("fileImage")MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        book.setLogo(fileName);
         long id = bookService.create(book);
+        String uploadDir = "./logos/" + id ;
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        if(!Files.exists(uploadPath)){
+            Files.createDirectories(uploadPath);
+        }
+
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            Path filePath = uploadPath.resolve(fileName);
+            System.out.println(filePath.toFile().getAbsolutePath());
+
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e){
+            throw new IOException("could not save uploaded file: "+ fileName);
+        }
         return "redirect:/adminbook/book";
     }
 }

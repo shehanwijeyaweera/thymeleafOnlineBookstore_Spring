@@ -21,6 +21,7 @@ public class Book {
     private String description;
     private BigDecimal price;
     private String publisher;
+    private String logo;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pubdate;
 
@@ -41,6 +42,17 @@ public class Book {
     public Book() {
     }
 
+    public Book(int ISBN, String title, String description, BigDecimal price, String publisher, String logo, LocalDate pubdate, Set<Category> categories, Set<Author> authors) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.publisher = publisher;
+        this.logo = logo;
+        this.pubdate = pubdate;
+        this.categories = categories;
+        this.authors = authors;
+    }
 
     public Long getBookId() {
         return bookId;
@@ -112,5 +124,20 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    @Transient
+    public String getLogoImagePath(){
+        if (logo == null || bookId == null) return null;
+
+        return "/logos/" + bookId + "/" + logo;
     }
 }
