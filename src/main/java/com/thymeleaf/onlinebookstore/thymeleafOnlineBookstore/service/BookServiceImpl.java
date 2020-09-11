@@ -3,6 +3,9 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +58,11 @@ public class BookServiceImpl implements BookService{
     @Override
     public void delete(Long bookId) {
         bookRepository.deleteById(bookId);
+    }
+
+    @Override
+    public Page<Book> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return this.bookRepository.findAll(pageable);
     }
 }
