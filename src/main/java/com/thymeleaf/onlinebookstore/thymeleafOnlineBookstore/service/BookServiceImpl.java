@@ -67,4 +67,11 @@ public class BookServiceImpl implements BookService{
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.bookRepository.findAll(pageable);
     }
+
+    public List<Book> findAllSearch(String keyword) {
+        if (keyword != null){
+            return bookRepository.findAllSearch(keyword);
+        }
+        return bookRepository.findAll();
+    }
 }

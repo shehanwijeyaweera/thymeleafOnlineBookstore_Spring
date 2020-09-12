@@ -8,6 +8,7 @@ import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookServic
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -186,6 +187,16 @@ public class AdminBookController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listBooks", listBooks);
+
+        return "view-book";
+    }
+
+    @RequestMapping("search")
+    public String ViewSearchindex(Model model, @Param("keyword") String keyword){
+        model.addAttribute("listCategories", categoryService.getAllCategories());
+        model.addAttribute("listAuthors", authorService.getAllAuthors());
+        List<Book> listbooks = bookService.findAllSearch(keyword);
+        model.addAttribute("listBooks", listbooks);
 
         return "view-book";
     }

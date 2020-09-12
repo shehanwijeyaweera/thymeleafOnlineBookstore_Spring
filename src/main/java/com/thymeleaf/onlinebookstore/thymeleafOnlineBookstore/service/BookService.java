@@ -2,6 +2,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service;
 
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Query;
 
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface BookService {
     void update(Long bookId, Book bookDetails);
     void delete(Long bookId);
     Page<Book> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+
+    List<Book> findAllSearch(String keyword);
 }

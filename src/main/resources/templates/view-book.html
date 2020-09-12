@@ -21,6 +21,16 @@
     <div>
         <a th:href="@{/adminbook/book/create}" class="btn btn-primary btn-sm mb-3">Add Book</a>
     </div>
+    <div>
+        <form class="form-inline offset-4" th:action="@{/adminbook/search}">
+            Filter:
+            <input type="text" name="keyword" required />
+            &nbsp;
+            <input class="btn btn-primary mb-2" type="submit" value="Search" />
+            &nbsp;
+            <input class="btn btn-primary mb-2" type="button" value="Clear" />
+        </form>
+    </div>
     <table class="table table-striped table-dark table-responsive-md col-md-10" >
         <thead>
         <tr>
