@@ -200,4 +200,12 @@ public class AdminBookController {
 
         return "view-book";
     }
+
+    @GetMapping("deleteBook/{book_Id}")
+    public String deleteBook(@PathVariable(value = "book_Id")long book_Id){
+        //call delete book method
+        this.bookService.delete(book_Id);
+
+        return "redirect:/adminbook/book?successdelete";
+    }
 }

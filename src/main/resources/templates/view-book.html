@@ -31,7 +31,7 @@
             <input class="btn btn-primary mb-2" type="button" value="Clear" />
         </form>
     </div>
-    <table class="table table-striped table-dark table-responsive-md col-md-10" >
+    <table class="table table-striped table-dark table-responsive-md col-md-11" >
         <thead>
         <tr>
             <th>ID</th>
@@ -41,6 +41,7 @@
             <th>description</th>
             <th><a th:href="@{'/adminbook/page/' + ${currentPage} + '?sortField=price&sortDir=' +${reverseSortDir}}">Price</a></th>
             <th><a th:href="@{'/adminbook/page/' + ${currentPage} + '?sortField=publisher&sortDir=' +${reverseSortDir}}">Publisher</a></th>
+            <th>Published date</th>
             <th><a th:href="@{'/adminbook/page/' + ${currentPage} + '?sortField=authors&sortDir=' +${reverseSortDir}}">Author</a></th>
             <th><a th:href="@{'/adminbook/page/' + ${currentPage} + '?sortField=categories&sortDir=' +${reverseSortDir}}">Categories</a></th>
             <th>Actions</th>
@@ -66,7 +67,9 @@
                     <span th:text="${category.category_name} + ' '">Item description here...</span>
                 </th:block>
             </td>
-            <td><a th:href="@{'/adminbook/show/' + ${book.bookId}}" class="btn btn-primary">View</a></td>
+            <td><a th:href="@{'/adminbook/show/' + ${book.bookId}}" class="btn btn-primary">View</a>
+                <a th:href="@{/adminbook/deleteBook/{bookId}(bookId=${book.bookId})}" class="btn btn-danger">Delete</a>
+            </td>
 <!--            <td> <a th:href="@{/adminbook/showFormUpdate/{author_id}(author_id=${author.author_id})}" class="btn btn-primary">Edit</a>-->
 <!--                <a th:href="@{/adminbook/deleteAuthor/{author_id}(author_id=${author.author_id})}" class="btn btn-danger">Delete</a>-->
 <!--            </td>-->
