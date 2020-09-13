@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head"/>
+<style>
+
+
+</style>
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar"/>
+<br/><br/><br/>
+<div class="container">
+    <div class="card">
+        <div class="row mx-auto my-2">
+            <div class="photo col-md-6">
+                <img th:src="@{${book.LogoImagePath}}" height="394px" width="300px" class="offset-2">
+            </div>
+            <div class="description col-md-6">
+                <h2 th:text="${book.title}"></h2>
+                <h4>
+                    <th:block th:each="author : ${book.authors}">
+                        <p th:text="${author.author_name}"></p>
+                    </th:block>
+                </h4>
+                <h4>
+                    <th:block th:each="category : ${book.categories}">
+                        <p th:text="${category.category_name}"></p>
+                    </th:block>
+                </h4>
+                <h1 th:text="${book.price}"></h1>
+                <p th:text="${book.description}"></p>
+                <button>Add to Cart</button>
+                <button>Wishlist</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>

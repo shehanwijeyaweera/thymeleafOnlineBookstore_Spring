@@ -57,4 +57,12 @@ public class CustomerBookController {
         return "customer_view-book";
     }
 
+    //show a single book details
+    @RequestMapping("show/{book_id}")
+    public String showSingleBook(@PathVariable("book_id")long book_id, Model model){
+        Book book = bookService.findById(book_id);
+        model.addAttribute("book", book);
+        return "customer_showSingleBookById";
+    }
+
 }
