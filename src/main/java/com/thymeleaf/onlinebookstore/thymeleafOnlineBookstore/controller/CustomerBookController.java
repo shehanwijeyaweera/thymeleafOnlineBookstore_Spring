@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +101,27 @@ public class CustomerBookController {
             }
         }
         return -1;
+    }
+
+    //remove book from cart function
+    @RequestMapping("remove/{bookId}")
+    public String remove(@PathVariable Long bookId, Model model, HttpSession session){
+        List<CartItem> cartItems =(List<CartItem>) session.getAttribute("cart");
+        int index = isExists(bookId, cartItems);
+        cartItems.remove(index);
+        session.setAttribute("cart", cartItems);
+        return  "redirect:/customer/cart";
+    }
+
+    @RequestMapping("cart/update")
+    public String update(HttpServletRequest request, HttpSession session){
+        String[] quantities = request.getParameterValues("quantity");
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cart");
+        for (int i=0; i<cartItems.size(); i++){
+            cartItems.get(i).setQuantity(Integer.parseInt(quantities[i]));
+        }
+        session.setAttribute("cart",cartItems);
+        return  "redirect:/customer/cart";
     }
 
 }
