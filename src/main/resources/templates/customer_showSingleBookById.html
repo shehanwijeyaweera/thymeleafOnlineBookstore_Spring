@@ -32,8 +32,8 @@
                 </h4>
                 <h1 th:text="${book.price}"></h1>
                 <p th:text="${book.description}"></p>
-                <button>Add to Cart</button>
-                <button>Wishlist</button>
+                <a th:href="@{'/customer/buy/' + ${book.bookId}}"  class="btn btn-primary btn-sm mb-3">Add to Cart</a>
+                <a th:href="@{/customer/book}" class="btn btn-primary btn-sm mb-3">Back</a>
             </div>
         </div>
     </div>

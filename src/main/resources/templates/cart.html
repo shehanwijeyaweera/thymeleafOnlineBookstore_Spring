@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head" />
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar" />
+
+<div class="container" align="center">
+    <h3>Cart</h3>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Logo</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>sub Total</th>
+        </tr>
+        <tr th:each="cartItem : ${session.cart}">
+            <td th:text="${cartItem.book.bookId}"></td>
+            <td><img th:src="@{${cartItem.book.LogoImagePath}}" height="50px" width="50px"></td>
+            <td th:text="${cartItem.book.title}"></td>
+            <td th:text="${cartItem.book.price}"></td>
+            <td th:text="${cartItem.quantity}"> </td>
+            <td th:text="${cartItem.book.price * cartItem.quantity}"></td>
+        </tr>
+    </table>
+    <br/><br/>
+    <div class="row">
+        <a th:href="@{/customer/book}" class="btn btn-primary btn-sm mb-3 offset-5">Continue Shopping</a>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>

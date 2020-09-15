@@ -1,6 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -63,6 +66,43 @@ public class CustomerBookController {
         Book book = bookService.findById(book_id);
         model.addAttribute("book", book);
         return "customer_showSingleBookById";
+    }
+
+    //view cart
+    @GetMapping("cart")
+    public String viewCart(){
+        return "cart";
+    }
+
+    //add cart function
+    @RequestMapping("buy/{bookId}")
+    public String buy(@PathVariable("bookId") Long bookId, Model model, HttpSession session){
+        if(session.getAttribute("cart")==null){
+            List<CartItem> cartItems = new ArrayList<CartItem>();
+            cartItems.add(new CartItem(bookService.findById(bookId), 1));
+            session.setAttribute("cart", cartItems);
+        }
+        else {
+            List<CartItem> cartItems =(List<CartItem>) session.getAttribute("cart");
+            int index = isExists(bookId, cartItems);
+            if (index == -1){
+                cartItems.add(new CartItem(bookService.findById(bookId), 1));
+            }else {
+                int quantity = cartItems.get(index).getQuantity() + 1;
+                cartItems.get(index).setQuantity(quantity);
+            }
+            session.setAttribute("cart", cartItems);
+        }
+        return "redirect:/customer/cart";
+    }
+
+    private int isExists(Long bookId, List<CartItem> cartItems){
+        for(int i = 0; i < cartItems.size(); i++){
+            if(cartItems.get(i).getBook().getBookId() == bookId){
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
