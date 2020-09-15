@@ -3,11 +3,15 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -30,6 +34,9 @@ public class CustomerBookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     //display list of books
     @GetMapping("book")
@@ -141,8 +148,21 @@ public class CustomerBookController {
 
     @RequestMapping("checkout")
     public String checkout(HttpSession session){
-        if(session.getAttribute("userid")==null){
-            return "redirect:";
+
+        String username;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user= userRepository.findByUsername(username);
+
+
+        if(user.getId()==null){
+            return "redirect:/";
         }else {
             return "redirect:/customer/orders/thanks";
         }
