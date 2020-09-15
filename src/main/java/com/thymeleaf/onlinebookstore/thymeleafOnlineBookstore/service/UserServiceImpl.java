@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
         if(user== null){
             throw  new UsernameNotFoundException("Invalid username or password");
         }
-
+        HttpSession session = null;
+        session.setAttribute("userid", user.getId() );
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), mapRolesToAuthorities(user.getUserRole()));
     }
 

@@ -1,5 +1,6 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +70,8 @@ public class CustomerBookController {
 
     //view cart
     @GetMapping("cart")
-    public String viewCart(){
+    public String viewCart(ModelMap modelMap, HttpSession session){
+        modelMap.put("total" , total(session));
         return "cart";
     }
 
@@ -113,6 +116,7 @@ public class CustomerBookController {
         return  "redirect:/customer/cart";
     }
 
+    //update the quantity of book and show sub total
     @RequestMapping("cart/update")
     public String update(HttpServletRequest request, HttpSession session){
         String[] quantities = request.getParameterValues("quantity");
@@ -122,6 +126,26 @@ public class CustomerBookController {
         }
         session.setAttribute("cart",cartItems);
         return  "redirect:/customer/cart";
+    }
+
+    private double total(HttpSession session){
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cart");
+        double s = 0;
+        if(session.getAttribute("cart")!=null) {
+            for (CartItem cartItem : cartItems) {
+                s += cartItem.getQuantity() * cartItem.getBook().getPrice().doubleValue();
+            }
+        }
+        return s;
+    }
+
+    @RequestMapping("checkout")
+    public String checkout(HttpSession session){
+        if(session.getAttribute("userid")==null){
+            return "redirect:";
+        }else {
+            return "redirect:/customer/orders/thanks";
+        }
     }
 
 }

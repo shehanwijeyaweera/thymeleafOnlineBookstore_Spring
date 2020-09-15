@@ -36,11 +36,16 @@
                 </td>
                 <td th:text="${cartItem.book.price * cartItem.quantity}"></td>
             </tr>
+            <tr>
+                <td colspan="6">Total</td>
+                <td th:text="${total}"></td>
+            </tr>
         </table>
     </form>
     <br/><br/>
-    <div class="row">
-        <a th:href="@{/customer/book}" class="btn btn-primary btn-sm mb-3 offset-5">Continue Shopping</a>
+    <div class="row" align="center">
+        <a th:href="@{/customer/book}" class="btn btn-primary btn-sm mb-3 offset-4">Continue Shopping</a> |
+        <a th:href="@{/customer/cart/checkout}" class="btn btn-primary btn-sm mb-3 offset-5">Check Out</a>
     </div>
 </div>
 
