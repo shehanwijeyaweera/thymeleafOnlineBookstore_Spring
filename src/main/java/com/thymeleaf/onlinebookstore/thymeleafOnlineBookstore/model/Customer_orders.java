@@ -1,7 +1,9 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Customer_orders {
@@ -17,6 +19,9 @@ public class Customer_orders {
     @Temporal(TemporalType.DATE)
     private Date datecreation;
     private String status;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
+    private List<Customer_orderItems> customer_orderItems = new ArrayList<>();
 
     public Customer_orders() {
     }

@@ -178,6 +178,10 @@ public class CustomerBookController {
             orders.setName("New Order");
             orders.setStatus("Pending");
             ordersService.saveOrder(orders);
+            Long orderId = orders.getId();
+
+            // add order items
+            List<CartItem> cartItems = (List<CartItem>)session.getAttribute("cart");
             return "redirect:/customer/orders/thanks";
         }
     }

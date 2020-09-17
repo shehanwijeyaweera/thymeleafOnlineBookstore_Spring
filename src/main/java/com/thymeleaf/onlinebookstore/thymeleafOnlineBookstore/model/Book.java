@@ -5,7 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +40,9 @@ public class Book {
             inverseJoinColumns = {@JoinColumn(name = "author_id")}
     )
     private Set<Author> authors = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+    private List<Customer_orderItems> customer_orderItems = new ArrayList<>();
 
     public Book() {
     }

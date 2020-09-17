@@ -1,10 +1,9 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository;
 
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Complaint;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
-
+public interface Customer_orderItemsRepository extends JpaRepository<Customer_orderItems, Long> {
 }
