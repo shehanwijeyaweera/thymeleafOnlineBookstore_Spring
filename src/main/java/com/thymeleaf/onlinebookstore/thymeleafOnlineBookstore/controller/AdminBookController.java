@@ -1,11 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -36,6 +32,12 @@ public class AdminBookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private OrdersService ordersService;
+
+    @Autowired
+    private Customer_orderItemsService customer_orderItemsService;
 
     //display list of Authors
     @GetMapping("authors")
@@ -207,5 +209,21 @@ public class AdminBookController {
         this.bookService.delete(book_Id);
 
         return "redirect:/adminbook/book?successdelete";
+    }
+
+    //display list of orders
+    @GetMapping("order")
+    public String ViewAllOrders(Model model){
+        model.addAttribute("listOrders", ordersService.getAllOrders());
+        return "admin_view_allorders";
+    }
+
+    @RequestMapping("order/{order_id}")
+    public String showSingleOrder(@PathVariable("order_id")long order_id, Model model){
+        Customer_orders customer_orders = ordersService.findById(order_id);
+        List<Customer_orderItems> bookList= customer_orderItemsService.getMyItems(order_id);
+        model.addAttribute("customer_order", customer_orders);
+        model.addAttribute("items",bookList);
+        return "showSingleOrderById";
     }
 }

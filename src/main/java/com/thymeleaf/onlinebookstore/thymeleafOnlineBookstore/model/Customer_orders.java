@@ -10,6 +10,7 @@ public class Customer_orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -21,16 +22,17 @@ public class Customer_orders {
     private String status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
-    private List<Customer_orderItems> customer_orderItems = new ArrayList<>();
+    private List<Customer_orderItems> customer_orderItems;
 
     public Customer_orders() {
     }
 
-    public Customer_orders(User user, String name, Date datecreation, String status) {
+    public Customer_orders(User user, String name, Date datecreation, String status, List<Customer_orderItems> customer_orderItems) {
         this.user = user;
         this.name = name;
         this.datecreation = datecreation;
         this.status = status;
+        this.customer_orderItems = customer_orderItems;
     }
 
     public Long getId() {

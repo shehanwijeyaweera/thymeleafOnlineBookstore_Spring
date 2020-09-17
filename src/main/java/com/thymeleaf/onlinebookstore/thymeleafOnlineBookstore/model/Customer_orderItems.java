@@ -19,6 +19,7 @@ public class Customer_orderItems {
     private BigDecimal price;
     private int quantity;
 
+
     public Customer_orderItems() {
     }
 
