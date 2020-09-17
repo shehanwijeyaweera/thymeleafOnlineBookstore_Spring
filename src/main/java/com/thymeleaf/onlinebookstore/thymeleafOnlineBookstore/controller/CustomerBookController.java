@@ -1,16 +1,10 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,6 +38,9 @@ public class CustomerBookController {
 
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private Customer_orderItemsService customer_orderItemsService;
 
     //display list of books
     @GetMapping("book")
@@ -182,6 +179,18 @@ public class CustomerBookController {
 
             // add order items
             List<CartItem> cartItems = (List<CartItem>)session.getAttribute("cart");
+            for(CartItem cartItem: cartItems){
+                Customer_orderItems customer_orderItems = new Customer_orderItems();
+                customer_orderItems.setBook(cartItem.getBook());
+                customer_orderItems.setCustomer_orders(orders);
+                customer_orderItems.setPrice(cartItem.getBook().getPrice());
+                customer_orderItems.setQuantity(cartItem.getQuantity());
+
+                customer_orderItemsService.saveOrderItem(customer_orderItems);
+
+                //Delete cart
+                session.removeAttribute("cart");
+            }
             return "redirect:/customer/orders/thanks";
         }
     }

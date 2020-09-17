@@ -1,6 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Customer_orderItems {
@@ -15,13 +16,13 @@ public class Customer_orderItems {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookid")
     private Book book;
-    private double price;
+    private BigDecimal price;
     private int quantity;
 
     public Customer_orderItems() {
     }
 
-    public Customer_orderItems(Customer_orders customer_orders, Book book, double price, int quantity) {
+    public Customer_orderItems(Customer_orders customer_orders, Book book, BigDecimal price, int quantity) {
         this.customer_orders = customer_orders;
         this.book = book;
         this.price = price;
@@ -52,11 +53,11 @@ public class Customer_orderItems {
         this.book = book;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
