@@ -3,11 +3,14 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,6 +41,9 @@ public class CustomerBookController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrdersService ordersService;
 
     //display list of books
     @GetMapping("book")
@@ -164,8 +171,20 @@ public class CustomerBookController {
         if(user.getId()==null){
             return "redirect:/";
         }else {
+            //order creation
+            Customer_orders orders = new Customer_orders();
+            orders.setUser(user);
+            orders.setDatecreation(new Date());
+            orders.setName("New Order");
+            orders.setStatus("Pending");
+            ordersService.saveOrder(orders);
             return "redirect:/customer/orders/thanks";
         }
+    }
+
+    @GetMapping("/orders/thanks")
+    public String ViewThanksPage(){
+        return "thanks";
     }
 
 }

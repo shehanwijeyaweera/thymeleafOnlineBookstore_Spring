@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="fragments :: html_head" />
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar" />
+
+<div class="container">
+    <a th:href="@{//}">Thank you for Shopping with Us!</a>
+</div>
+
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+
+</body>
+
+</html>

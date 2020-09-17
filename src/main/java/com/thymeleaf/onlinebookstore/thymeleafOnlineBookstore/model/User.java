@@ -1,9 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
@@ -32,6 +30,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "complaint_fid", referencedColumnName = "id")
     private List<Complaint> complaints = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Customer_orders> orders = new HashSet<Customer_orders>(0);
 
     public User() {
     }

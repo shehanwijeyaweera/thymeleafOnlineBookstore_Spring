@@ -56,6 +56,8 @@ public class AdminBookController {
     @PostMapping("saveAuthor")
     public String saveAuthor(@ModelAttribute("author") Author author){
         //save author to database
+        author.getAuthor_id();
+        author.getAuthor_name();
         authorService.saveAuthor(author);
         return "redirect:/adminbook/authors?success";
     }
