@@ -13,5 +13,5 @@ public interface OrdersService {
      List<Customer_orders> getAllOrders();
      Customer_orders findById(Long orderID);
 
-
+     List<Customer_orders> getCustomerOrders(long user_id);
 }

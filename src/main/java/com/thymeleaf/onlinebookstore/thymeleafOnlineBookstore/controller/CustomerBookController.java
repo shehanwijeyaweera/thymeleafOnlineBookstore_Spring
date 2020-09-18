@@ -200,4 +200,24 @@ public class CustomerBookController {
         return "thanks";
     }
 
+    @GetMapping("order")
+    public String ShowCustomerOrders(Model model){
+
+        String username;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user= userRepository.findByUsername(username);
+
+        List<Customer_orders> ordersList = ordersService.getCustomerOrders(user.getId());
+        model.addAttribute("customer_orders", ordersList);
+
+        return "showCustomerAllOrders";
+    }
+
 }

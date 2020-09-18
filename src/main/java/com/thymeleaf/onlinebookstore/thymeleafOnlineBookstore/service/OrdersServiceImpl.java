@@ -45,7 +45,10 @@ public class OrdersServiceImpl implements OrdersService {
         return customer_ordersOptional.get();
     }
 
-
+    @Override
+    public List<Customer_orders> getCustomerOrders(long user_id) {
+        return ordersRepository.getCustomerOrders(user_id);
+    }
 
 
 }

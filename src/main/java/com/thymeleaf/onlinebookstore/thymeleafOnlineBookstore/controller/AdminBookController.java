@@ -218,6 +218,7 @@ public class AdminBookController {
         return "admin_view_allorders";
     }
 
+    //display single book order details with order items
     @RequestMapping("order/{order_id}")
     public String showSingleOrder(@PathVariable("order_id")long order_id, Model model){
         Customer_orders customer_orders = ordersService.findById(order_id);
