@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="Cust_fragments :: html_head"/>
+
+<body>
+<!--page header-->
+<nav th:replace="Cust_fragments :: page_header"/>
+<!--navbar-->
+<nav th:replace="Cust_fragments :: navigation_bar"/>
+
+
+<section class="hero-wrap hero-wrap-2" th:style="'background-image: url(/images/bg_5.jpg);'"
+         data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate mb-0 text-center">
+                <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i
+                        class="fa fa-chevron-right"></i></a></span> <span>Book Store <i class="fa fa-chevron-right"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Book Store</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+
+    <div class="container-fluid px-md-5">
+        <div class="row">
+            <div th:each="book : ${listBooks}" class="col-md-6 col-lg-4 d-flex">
+                <div class="book-wrap d-lg-flex">
+                    <img th:src="@{${book.LogoImagePath}}" class="img d-flex justify-content-end" />
+
+
+                    <div class="text p-4">
+                        <p class="mb-2"><span class="price" th:text="${book.price}"></span></p>
+                        <h2><a href="#" th:text="${book.title}"></a></h2>
+                        <span class="position" th:text="${book.authors}"></span>
+                        <div class="detail"><a th:href="@{'/customer/show/' + ${book.bookId}}" class="btn btn-primary">View</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        <li>
+                            <a th:if="${currentPage < totalPages}"
+                               th:href="@{'/customer/page/' + ${totalPages + 1} + '?sortField=' +${sortField} + '&sortDir=' + ${sortDir}}">&lt;</a>
+                            <span th:unless="${currentPage < totalPages}">&lt;</span>
+                        </li>
+                        <li class="active">
+                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                 <a th:if="${currentPage != i}" th:href="@{'/customer/page/' + ${i}+ '?sortField=' +${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                            <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                            </span>
+                        </li>
+                        <li>
+                            <a th:if="${currentPage < totalPages}"
+                               th:href="@{'/customer/page/' + ${currentPage + 1} + '?sortField=' +${sortField} + '&sortDir=' + ${sortDir}}">&gt;</a>
+                            <span th:unless="${currentPage < totalPages}">&gt;</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<div th:replace="Cust_fragments :: footer"/>
+<!--loader-->
+
+<!--scripts-->
+<div th:replace="Cust_fragments :: scripts"/>
+</body>
+
+</html>
