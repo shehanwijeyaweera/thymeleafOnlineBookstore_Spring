@@ -24,6 +24,11 @@ public class loginController {
         return "Customer_homepage";
     }
 
+    @GetMapping("/homepage_custold")
+    public String custold_homepage(){
+        return "customer_view-book";
+    }
+
     @GetMapping("/")
     public String pageRedirection(Model model)
     {

@@ -68,7 +68,7 @@ public class CustomerBookController {
 
         model.addAttribute("listBooks", listBooks);
 
-        return "customer_view-book";
+        return "Customer_viewAllBooks";
     }
 
     //show a single book details
