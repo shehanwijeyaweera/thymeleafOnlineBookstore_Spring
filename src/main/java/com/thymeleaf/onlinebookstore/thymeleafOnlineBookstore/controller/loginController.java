@@ -29,6 +29,11 @@ public class loginController {
         return "Customer_about";
     }
 
+    @GetMapping("/cart_cust")
+    public String cust_cartpage(){
+        return "Cust_cart";
+    }
+
     @GetMapping("/homepage_custold")
     public String custold_homepage(){
         return "customer_view-book";

@@ -41,9 +41,7 @@
         <div class="col-md-4 d-flex">
             <div class="social-media">
                 <p class="mb-0 d-flex">
-                    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-user"><i class="sr-only">User</i></span></a>
-                    <a th:href="@{/customer/cart}" class="d-flex align-items-center justify-content-center"><span class="fa fa-shopping-cart"><i class="sr-only">Cart</i></span></a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="d-flex align-items-center justify-content-center"><span class="fa fa-power-off"><i class="sr-only">Logout</i></span></a>
+
                 </p>
             </div>
         </div>
@@ -62,6 +60,13 @@
                 <li class="nav-item"><a th:href="@{/about_cust}" class="nav-link">About Us</a></li>
                 <li class="nav-item"><a th:href="@{/customer/book}" class="nav-link">Books</a></li>
                 <li class="nav-item"><a href="author.html" class="nav-link">Author</a></li>
+                <li class="nav-item"><a href="author.html" class="nav-link">Track shipping</a></li>
+                <li class="nav-item"><a href="author.html" class="nav-link">Past orders</a></li>
+            </ul>
+            <ul class="navbar-nav text-right">
+                <li class="nav-item"><a href="author.html" class="nav-link">Welcome,<span sec:authentication="principal.username"></span></a></li>
+                <li class="nav-item"><a th:href="@{/customer/cart}" class="nav-link"><span class="fa fa-shopping-cart"><i class="sr-only">Cart</i></span>Cart</a></li>
+                <li class="nav-item"><a href="author.html" class="nav-link"><span class="fa fa-power-off"><i class="sr-only">Cart</i></span>Logout</a></li>
             </ul>
         </div>
     </div>
