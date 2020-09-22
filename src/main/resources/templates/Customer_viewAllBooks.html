@@ -37,7 +37,9 @@
                     <div class="text p-4">
                         <p class="mb-2"><span class="price" th:text="${book.price}"></span></p>
                         <h2><a href="#" th:text="${book.title}"></a></h2>
-                        <span class="position" th:text="${book.authors}"></span>
+                        <th:block th:each="author : ${book.authors}" >
+                            <span th:text="${author.author_name} + ' '">Item description here...</span>
+                        </th:block>
                         <div class="detail"><a th:href="@{'/customer/show/' + ${book.bookId}}" class="btn btn-primary">View</a></div>
                     </div>
                 </div>
