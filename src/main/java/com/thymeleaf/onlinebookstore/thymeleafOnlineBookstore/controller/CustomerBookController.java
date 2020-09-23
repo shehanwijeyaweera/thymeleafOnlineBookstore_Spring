@@ -76,7 +76,7 @@ public class CustomerBookController {
     public String showSingleBook(@PathVariable("book_id")long book_id, Model model){
         Book book = bookService.findById(book_id);
         model.addAttribute("book", book);
-        return "customer_showSingleBookById";
+        return "Customer_singleBookView";
     }
 
     //view cart

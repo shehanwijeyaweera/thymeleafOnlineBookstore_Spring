@@ -39,6 +39,11 @@ public class loginController {
         return "customer_view-book";
     }
 
+    @GetMapping("/singleBookView")
+    public String singleBookView(){
+        return "admin_singleBookView";
+    }
+
     @GetMapping("/")
     public String pageRedirection(Model model)
     {
