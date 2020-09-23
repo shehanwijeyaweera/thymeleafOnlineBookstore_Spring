@@ -153,7 +153,7 @@ public class AdminBookController {
         model.addAttribute("categories", categories);
         List<Author> authors = authorService.getAllAuthors();
         model.addAttribute("authors", authors);
-        return "new-book";
+        return "admin_addbook";
     }
 
     @PostMapping("book/create")
@@ -220,7 +220,7 @@ public class AdminBookController {
         //call delete book method
         this.bookService.delete(book_Id);
 
-        return "redirect:/adminbook/book?successdelete";
+        return "redirect:/adminbook/adminViewallbooks";
     }
 
     //display list of orders
@@ -247,5 +247,11 @@ public class AdminBookController {
         model.addAttribute("allbooks", bookRepository.findAll().size());
         model.addAttribute("totalsales", ordersRepository.sumofsale());
         return "admin_homepage";
+    }
+
+    @GetMapping("/adminViewallbooks")
+    public String admin_allBooks(Model model){
+        model.addAttribute("listbooks", bookRepository.findAll());
+        return "admin_ViewAllBooks";
     }
 }
