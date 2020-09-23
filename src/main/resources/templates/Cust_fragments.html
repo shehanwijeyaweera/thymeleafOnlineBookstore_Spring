@@ -66,7 +66,7 @@
             <ul class="navbar-nav text-right">
                 <li class="nav-item"><a href="author.html" class="nav-link">Welcome,<span sec:authentication="principal.username"></span></a></li>
                 <li class="nav-item"><a th:href="@{/customer/cart}" class="nav-link"><span class="fa fa-shopping-cart"><i class="sr-only">Cart</i></span>Cart</a></li>
-                <li class="nav-item"><a href="author.html" class="nav-link"><span class="fa fa-power-off"><i class="sr-only">Cart</i></span>Logout</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-link"><span class="fa fa-power-off"><i class="sr-only">Cart</i></span>Logout</a></li>
             </ul>
         </div>
     </div>

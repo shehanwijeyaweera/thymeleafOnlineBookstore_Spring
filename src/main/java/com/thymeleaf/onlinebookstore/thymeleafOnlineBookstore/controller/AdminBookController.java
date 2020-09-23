@@ -1,6 +1,8 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,12 @@ public class AdminBookController {
 
     @Autowired
     private Customer_orderItemsService customer_orderItemsService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     //display list of Authors
     @GetMapping("authors")
@@ -226,5 +234,13 @@ public class AdminBookController {
         model.addAttribute("customer_order", customer_orders);
         model.addAttribute("items",bookList);
         return "showSingleOrderById";
+    }
+
+    @GetMapping("/newadminhomepage")
+    public String admin_homepage(Model model){
+        model.addAttribute("listOrders", ordersService.getAllOrders().size());
+        model.addAttribute("allcustomers", userRepository.findAll().size());
+        model.addAttribute("allbooks", bookRepository.findAll().size());
+        return "admin_homepage";
     }
 }

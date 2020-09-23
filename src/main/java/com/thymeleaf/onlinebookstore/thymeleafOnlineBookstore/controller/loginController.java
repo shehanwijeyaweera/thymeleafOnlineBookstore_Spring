@@ -47,7 +47,7 @@ public class loginController {
 
         if(authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("Admin")))
         {
-            return "index";
+            return "redirect:/adminbook/newadminhomepage";
         }
         if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("User")))
         {
