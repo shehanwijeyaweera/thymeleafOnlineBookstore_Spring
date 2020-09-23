@@ -136,19 +136,10 @@
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false"> <i class="menu-icon fa fa-male"></i>Employees</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">View All Employees</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Add Employees</a></li>
-
-                    </ul>
-                </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Users</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">View All Users</a></li>
-
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/users/list}">View All Users</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/adminaddUser}">Add User</a></li>
                     </ul>
                 </li>
 

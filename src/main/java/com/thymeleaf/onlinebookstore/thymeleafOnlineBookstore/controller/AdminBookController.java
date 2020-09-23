@@ -5,6 +5,7 @@ import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRep
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -50,6 +51,10 @@ public class AdminBookController {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Autowired
+    private UserService userService;
+
 
     //display list of Authors
     @GetMapping("authors")
@@ -253,5 +258,19 @@ public class AdminBookController {
     public String admin_allBooks(Model model){
         model.addAttribute("listbooks", bookRepository.findAll());
         return "admin_ViewAllBooks";
+    }
+
+    //admin add new user
+    @GetMapping("/adminaddUser")
+    public String admin_adduser(Model model){
+        model.addAttribute("user", new UserRegistrationDto());
+        return "admin_addUser";
+    }
+
+    //save new user data
+    @PostMapping("/adminaddUser/save")
+    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto){
+        userService.save(registrationDto);
+        return "redirect:/users/list";
     }
 }

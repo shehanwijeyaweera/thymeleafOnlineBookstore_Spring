@@ -28,7 +28,7 @@
 <!--            <th style="padding: .25rem">password</th>-->
             <th style="padding: .25rem">user_phoneNo</th>
             <th style="padding: .25rem">user_address</th>
-<!--            <th style="padding: .25rem">userRole</th>-->
+            <th style="padding: .25rem">userRole</th>
             <th style="padding: .25rem">Edit</th>
             <th style="padding: .25rem">Delete</th>
         </tr>
@@ -42,6 +42,12 @@
 <!--&lt;!&ndash;            <td th:text="${user.password}"></td>&ndash;&gt; removed because of encryption-->
             <td th:text="${user.user_phoneNo}"></td>
             <td th:text="${user.user_address}"></td>
+            <td>
+                <th:block th:each="role : ${user.userRole}" >
+                    <span th:text="${role.name} + ' '">Role description here...</span>
+                </th:block>
+            </td>
+
 <!--            <td th:text="${user.userRole}"></td>-->
             <td><a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
             <td><a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>

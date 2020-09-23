@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("list")
     public String showUpdateForm(Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "index-user";
+        return "admin_viewAllUsers";
     }
 
     @PostMapping("add")
