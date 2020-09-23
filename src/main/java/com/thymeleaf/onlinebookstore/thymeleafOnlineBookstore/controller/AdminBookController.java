@@ -227,7 +227,7 @@ public class AdminBookController {
     @GetMapping("order")
     public String ViewAllOrders(Model model){
         model.addAttribute("listOrders", ordersService.getAllOrders());
-        return "admin_view_allorders";
+        return "admin_viewAllOrders";
     }
 
     //display single book order details with order items
