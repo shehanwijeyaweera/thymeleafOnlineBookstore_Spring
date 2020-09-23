@@ -20,6 +20,7 @@ public class Customer_orders {
     @Temporal(TemporalType.DATE)
     private Date datecreation;
     private String status;
+    private double total;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
     private List<Customer_orderItems> customer_orderItems;
@@ -27,11 +28,12 @@ public class Customer_orders {
     public Customer_orders() {
     }
 
-    public Customer_orders(User user, String name, Date datecreation, String status, List<Customer_orderItems> customer_orderItems) {
+    public Customer_orders(User user, String name, Date datecreation, String status, double total, List<Customer_orderItems> customer_orderItems) {
         this.user = user;
         this.name = name;
         this.datecreation = datecreation;
         this.status = status;
+        this.total = total;
         this.customer_orderItems = customer_orderItems;
     }
 
@@ -73,5 +75,21 @@ public class Customer_orders {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public List<Customer_orderItems> getCustomer_orderItems() {
+        return customer_orderItems;
+    }
+
+    public void setCustomer_orderItems(List<Customer_orderItems> customer_orderItems) {
+        this.customer_orderItems = customer_orderItems;
     }
 }

@@ -150,8 +150,8 @@ public class CustomerBookController {
         return s;
     }
 
-    @RequestMapping("checkout")
-    public String checkout(HttpSession session){
+    @RequestMapping("checkout/{total}")
+    public String checkout(@PathVariable("total") double total,HttpSession session){
 
         String username;
 
@@ -174,6 +174,7 @@ public class CustomerBookController {
             orders.setDatecreation(new Date());
             orders.setName("New Order");
             orders.setStatus("Pending");
+            orders.setTotal(total);
             ordersService.saveOrder(orders);
             Long orderId = orders.getId();
 
