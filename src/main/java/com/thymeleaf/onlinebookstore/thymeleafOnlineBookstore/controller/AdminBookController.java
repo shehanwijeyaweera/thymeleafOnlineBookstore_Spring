@@ -63,7 +63,7 @@ public class AdminBookController {
     public String ViewAllAuthors(Model model){
         model.addAttribute("listAuthors", authorService.getAllAuthors());
 
-        return "view-authors";
+        return "admin_viewAllAuthors";
     }
 
     @GetMapping("showNewAuthorForm")
@@ -71,7 +71,7 @@ public class AdminBookController {
         //creates model attribute to bind form data
         Author author = new Author();
         model.addAttribute("author", author);
-        return "add_author";
+        return "admin_addAuthor";
     }
 
     @PostMapping("saveAuthor")
@@ -88,7 +88,7 @@ public class AdminBookController {
 
         //set author as a model attribute to populate the form to update info
         model.addAttribute("author", author);
-        return "edit_author";
+        return "admin_editAuthor";
     }
 
     @GetMapping("deleteAuthor/{author_id}")

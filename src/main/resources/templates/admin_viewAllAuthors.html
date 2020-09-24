@@ -19,23 +19,23 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">View All Categories</strong>
+                            <strong class="card-title">View All Authors</strong>
                         </div>
                         <div class="card-body">
                             <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Category Name</th>
+                                    <th>Author Name</th>
                                     <th class="col-2">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="category : ${listCategories}">
-                                    <td th:text="${category.category_id}"></td>
-                                    <td th:text="${category.category_name}"></td>
-                                    <td> <a th:href="@{/adminbook/showFormCategoryUpdate/{category_id}(category_id=${category.category_id})}" class="btn btn-primary">Edit</a>
-                                        <a th:href="@{/adminbook/deleteCategory/{category_id}(category_id=${category.category_id})}" class="btn btn-danger">Delete</a>
+                                <tr th:each="author : ${listAuthors}">
+                                    <td th:text="${author.author_id}"></td>
+                                    <td th:text="${author.author_name}"></td>
+                                    <td> <a th:href="@{/adminbook/showFormAuthorUpdate/{author_id}(author_id=${author.author_id})}" class="btn btn-primary">Edit</a>
+                                        <a th:href="@{/adminbook/deleteAuthor/{author_id}(author_id=${author.author_id})}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 </tbody>
