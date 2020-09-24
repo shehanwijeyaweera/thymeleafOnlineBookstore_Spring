@@ -3,7 +3,7 @@
 <head th:fragment="adminhtml_head">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>OBS.com</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -92,8 +92,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false"> <i class="menu-icon fa fa-align-justify"></i>Category</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Add Category</a></li>
-                        <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">View All Categories</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/showNewCategoryForm}">Add Category</a></li>
+                        <li><i class="fa fa-id-badge"></i><a th:href="@{/adminbook/category}">View All Categories</a></li>
 
                     </ul>
                 </li>

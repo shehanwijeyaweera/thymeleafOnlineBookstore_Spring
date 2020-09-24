@@ -104,7 +104,7 @@ public class AdminBookController {
     @GetMapping("category")
     public String ViewAllCategories(Model model){
         model.addAttribute("listCategories", categoryService.getAllCategories());
-        return "view-category";
+        return "admin_viewAllCategories";
     }
 
     @GetMapping("showNewCategoryForm")
@@ -112,13 +112,13 @@ public class AdminBookController {
         Category category = new Category();
         model.addAttribute("category", category);
 
-        return "add_category";
+        return "admin_addCategory";
     }
 
     @PostMapping("saveCategory")
     public String saveCategory(@ModelAttribute("category") Category category){
         categoryService.saveCategory(category);
-        return "redirect:/adminbook/category?success";
+        return "redirect:/adminbook/category";
     }
 
     @GetMapping("showFormCategoryUpdate/{category_id}")
@@ -128,7 +128,7 @@ public class AdminBookController {
 
         //set category as a model attribute to populate the form
         model.addAttribute("category", category);
-        return "edit_category";
+        return "admin_editCategory";
     }
 
     @GetMapping("deleteCategory/{category_id}")
