@@ -12,9 +12,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -272,5 +274,28 @@ public class AdminBookController {
     public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto){
         userService.save(registrationDto);
         return "redirect:/users/list";
+    }
+
+    //show user update form
+    @GetMapping("userdetails/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("user", user);
+        return "admin_editUser";
+    }
+
+    //save updated user details
+    @PostMapping("userdetails/update/{id}")
+    public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result,
+                             Model model) {
+        if (result.hasErrors()) {
+            user.setId(id);
+            return "admin_editUser";
+        }
+
+        userRepository.save(user);
+        model.addAttribute("users", userRepository.findAll());
+        return "admin_viewAllUsers";
     }
 }

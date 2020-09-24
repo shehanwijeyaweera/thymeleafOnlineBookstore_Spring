@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:replace="admin_fragments :: adminhtml_head"/>
+
+<body>
+
+<aside th:replace="admin_fragments :: side_nav"/>
+
+<div id="right-panel" class="right-panel">
+
+    <aside th:replace="admin_fragments :: adminheader"/>
+
+    <div class="content col-6 offset-3">
+
+        <h1>Add new User</h1><br/><br/>
+
+        <form th:action="@{/adminbook/userdetails/update/{id}(id=${user.id})}" method="post" th:object="${user}">
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    First Name
+                </label>
+                <input id="user_fName" class = "form-control" th:field="*{user_fName}" required autofocus="autofocus" />
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Last Name
+                </label>
+                <input id="user_lName" class = "form-control" th:field="*{user_lName}" required autofocus="autofocus" />
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Email
+                </label>
+                <input id="user_email" class = "form-control" th:field="*{user_email}" required autofocus="autofocus" />
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Address
+                </label>
+                <input id="user_address" class = "form-control" th:field="*{user_address}" required autofocus="autofocus" />
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Phone No
+                </label>
+                <input id="user_phoneNo" class = "form-control" th:field="*{user_phoneNo}" required autofocus="autofocus" />
+            </div>
+            <div class="form-group">
+                <label class = "control-label" for="user_fName">
+                    User Role
+                </label>
+                <select id="userRole" th:field="*{userRole}">
+                    <option th:value="'Admin'" th:text="Admin"></option>
+                    <option th:value="'User'" th:text="User"></option>
+                    <option th:value="'Storeworker'" th:text="Storeworker"></option>
+                </select>
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Username
+                </label>
+                <input id="username" class = "form-control" th:field="*{username}" required autofocus="autofocus" />
+            </div>
+            <div class = "form-group">
+                <label class = "control-label" for="user_fName">
+                    Password
+                </label>
+                <input id="password" class = "form-control" type="password" th:field="*{password}" required autofocus="autofocus" />
+            </div>
+
+            <div class = "form-group">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<div th:replace="admin_fragments :: adminscript"/>
+
+</body>
+
+</html>
