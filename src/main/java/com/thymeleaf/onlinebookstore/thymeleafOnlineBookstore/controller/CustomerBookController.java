@@ -218,7 +218,16 @@ public class CustomerBookController {
         List<Customer_orders> ordersList = ordersService.getCustomerOrders(user.getId());
         model.addAttribute("customer_orders", ordersList);
 
-        return "showCustomerAllOrders";
+        return "Cust_showAllOrders";
+    }
+
+    @RequestMapping("order/{order_id}")
+    public String showSingleOrder(@PathVariable("order_id")long order_id, Model model){
+        Customer_orders customer_orders = ordersService.findById(order_id);
+        List<Customer_orderItems> bookList= customer_orderItemsService.getMyItems(order_id);
+        model.addAttribute("customer_order", customer_orders);
+        model.addAttribute("items",bookList);
+        return "Cust_viewSingleOrderDetails";
     }
 
 }

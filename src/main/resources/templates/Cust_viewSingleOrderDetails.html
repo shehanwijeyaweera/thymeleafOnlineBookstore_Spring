@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="Cust_fragments :: html_head"/>
+
+<body>
+<!--page header-->
+<nav th:replace="Cust_fragments :: page_header"/>
+<!--navbar-->
+<nav th:replace="Cust_fragments :: navigation_bar"/>
+
+<div class="container mb-4">
+    <h3>Order Details</h3>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col"></th>
+                            <th scope="col">Title</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${items}">
+                            <td th:text="${item.id}" class="serial"></td>
+                            <td>
+                                <img th:src="@{${item.book.logoImagePath}}" height="50px" width="50px">
+                            </td>
+                            <td th:text="${item.book.title}"> </td>
+                            <td>  <span th:text="${item.quantity}"></span> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="Cust_fragments :: footer"/>
+<!--scripts-->
+<div th:replace="Cust_fragments :: scripts"/>
+
+</body>
+
+</html>

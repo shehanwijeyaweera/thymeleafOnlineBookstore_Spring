@@ -61,7 +61,7 @@
                 <li class="nav-item"><a th:href="@{/customer/book}" class="nav-link">Books</a></li>
                 <li class="nav-item"><a href="author.html" class="nav-link">Request Book</a></li>
                 <li class="nav-item"><a href="author.html" class="nav-link">Track shipping</a></li>
-                <li class="nav-item"><a href="author.html" class="nav-link">Past orders</a></li>
+                <li class="nav-item"><a th:href="@{/customer/order}" class="nav-link">Past orders</a></li>
             </ul>
             <ul class="navbar-nav text-right">
                 <li class="nav-item"><a href="author.html" class="nav-link">Welcome,<span sec:authentication="principal.username"></span></a></li>
