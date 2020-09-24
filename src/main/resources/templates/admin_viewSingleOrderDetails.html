@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:replace="admin_fragments :: adminhtml_head"/>
+
+<body>
+
+<aside th:replace="admin_fragments :: side_nav"/>
+
+<div id="right-panel" class="right-panel">
+
+    <aside th:replace="admin_fragments :: adminheader"/>
+
+    <div class="content">
+
+        <div class="vue-lists offset-3">
+            <h2 class="mb-4">Order Details</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3></h3>
+                    <ul>
+                        <li>Order ID :&nbsp; <span th:text="${customer_order.id}"></span></li>
+                        <li>Status :&nbsp; <span th:text="${customer_order.status}"></span></li>
+                        <li>Shipping status :&nbsp; <span th:text="${customer_order.name}"></span></li>
+                        <li>Order Date :&nbsp; <span th:text="${customer_order.datecreation}"></span></li>
+                        <li>Customer Name :&nbsp; <span th:text="${customer_order.user.user_fName}"></span>&nbsp;<span th:text="${customer_order.user.user_lName}"></span></li>
+                        <li>Phone No :&nbsp; <span th:text="${customer_order.user.user_phoneNo}"></span></li>
+                        <li>Email :&nbsp; <span th:text="${customer_order.user.user_email}"></span></li>
+                        <li>Shipping Address :&nbsp; <span th:text="${customer_order.user.user_address}"></span></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="row my-2">
+                <div class="content">
+                    <div class="animated fadeIn">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong class="card-title">Ordered Books</strong>
+                                    </div>
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                            <tr>
+                                                <th class="serial">#</th>
+                                                <th class="avatar"></th>
+                                                <th>Title</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="item : ${items}">
+                                                <td th:text="${item.id}" class="serial"></td>
+                                                <td class="avatar">
+                                                    <div class="round-img">
+                                                        <img class="rounded-circle" th:src="@{${item.book.logoImagePath}}" alt="">
+                                                    </div>
+                                                </td>
+                                                <td th:text="${item.book.title}"> </td>
+                                                <td>  <span th:text="${item.quantity}"></span> </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- /.table-stats -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div th:replace="admin_fragments :: adminscript"/>
+
+</body>
+
+</html>

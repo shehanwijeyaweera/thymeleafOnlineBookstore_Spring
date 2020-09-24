@@ -244,7 +244,7 @@ public class AdminBookController {
         List<Customer_orderItems> bookList= customer_orderItemsService.getMyItems(order_id);
         model.addAttribute("customer_order", customer_orders);
         model.addAttribute("items",bookList);
-        return "showSingleOrderById";
+        return "admin_viewSingleOrderDetails";
     }
 
     @GetMapping("/newadminhomepage")
