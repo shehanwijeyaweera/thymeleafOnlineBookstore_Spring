@@ -3,6 +3,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RefundRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class CustomerBookController {
 
     @Autowired
     private Customer_orderItemsService customer_orderItemsService;
+
+    @Autowired
+    private OrdersRepository ordersRepository;
+
+    @Autowired
+    private RefundRepository refundRepository;
 
     //display list of books
     @GetMapping("book")
@@ -229,5 +236,42 @@ public class CustomerBookController {
         model.addAttribute("items",bookList);
         return "Cust_viewSingleOrderDetails";
     }
+
+    //show refund request form
+    @RequestMapping("refundreq/{order_id}")
+    public String RequestRefundForm(@PathVariable("order_id") long order_id, Model model, Refund refund){
+        model.addAttribute("order_id", order_id);
+        return "Cust_refundReqpage";
+    }
+
+    @PostMapping("refundreq/save/{order_id}")
+    public String RequestRefundSave(@PathVariable("order_id") Long order_id, @ModelAttribute("refund") Refund refund){
+        Customer_orders customer_orders = new Customer_orders();
+
+       customer_orders = ordersRepository.findOrderbyId(order_id);
+
+        String username;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user= userRepository.findByUsername(username);
+
+        Refund refund1 = new Refund();
+        refund1.setReason(refund.getReason());
+        refund1.setCustomer_orders(customer_orders);
+        refund1.setReqDate(new Date());
+        refund1.setUser(user);
+
+        refundRepository.save(refund1);
+
+        return "redirect:/customer/order";
+    }
+
+
 
 }

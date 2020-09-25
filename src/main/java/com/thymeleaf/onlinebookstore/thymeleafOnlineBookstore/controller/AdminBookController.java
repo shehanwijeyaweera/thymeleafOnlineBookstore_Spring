@@ -3,6 +3,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RefundRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.web.dto.UserRegistrationDto;
@@ -56,6 +57,9 @@ public class AdminBookController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RefundRepository refundRepository;
 
 
     //display list of Authors
@@ -297,5 +301,47 @@ public class AdminBookController {
         userRepository.save(user);
         model.addAttribute("users", userRepository.findAll());
         return "admin_viewAllUsers";
+    }
+
+    @GetMapping("refund")
+    private String ViewAllrefundRequest(Model model){
+        model.addAttribute("listrefunds", refundRepository.getAllNotResponedRefundReq());
+        return "admin_viewAllRefundRequests";
+    }
+
+    @RequestMapping("refundAccept/{order_id}/response/{refund_id}")
+    private String acceptRefund(@PathVariable("order_id")Long order_id, @PathVariable("refund_id") Long refund_id){
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(order_id);
+        Refund refund = refundRepository.findRefundById(refund_id);
+        refund.setRespond("responded");
+        customer_orders.setStatus("Refunded");
+        refundRepository.save(refund);
+        ordersRepository.save(customer_orders);
+        return "redirect:/adminbook/refund";
+    }
+
+    @RequestMapping("refundReject/{order_id}/response/{refund_id}")
+    private String rejectRefund(@PathVariable("order_id")Long order_id, @PathVariable("refund_id")Long refund_id){
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(order_id);
+        Refund refund = refundRepository.findRefundById(refund_id);
+        customer_orders.setStatus("Rejected");
+        refund.setRespond("responded");
+        ordersRepository.save(customer_orders);
+        refundRepository.save(refund);
+        return "redirect:/adminbook/refund";
+    }
+
+    @GetMapping("refund/accepted")
+    private String showRefundedReqs(Model model){
+        List<Refund> refund = refundRepository.getAllRefundedReqs();
+        model.addAttribute("Refundedreqs", refund);
+        return "admin_showAllRefundedReqs";
+    }
+
+    @GetMapping("refund/rejected")
+    private String showRejectedRefundReqs(Model model){
+        List<Refund> refund = refundRepository.getAllRejectedRefundReqs();
+        model.addAttribute("RejectedReqs", refund);
+        return "admin_showAllRejectedReqs";
     }
 }

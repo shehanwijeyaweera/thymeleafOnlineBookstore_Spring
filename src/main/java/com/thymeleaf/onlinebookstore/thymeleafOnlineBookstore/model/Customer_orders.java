@@ -25,16 +25,20 @@ public class Customer_orders {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
     private List<Customer_orderItems> customer_orderItems;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
+    private  List<Refund> refunds;
+
     public Customer_orders() {
     }
 
-    public Customer_orders(User user, String name, Date datecreation, String status, double total, List<Customer_orderItems> customer_orderItems) {
+    public Customer_orders(User user, String name, Date datecreation, String status, double total, List<Customer_orderItems> customer_orderItems, List<Refund> refunds) {
         this.user = user;
         this.name = name;
         this.datecreation = datecreation;
         this.status = status;
         this.total = total;
         this.customer_orderItems = customer_orderItems;
+        this.refunds = refunds;
     }
 
     public Long getId() {
@@ -91,5 +95,13 @@ public class Customer_orders {
 
     public void setCustomer_orderItems(List<Customer_orderItems> customer_orderItems) {
         this.customer_orderItems = customer_orderItems;
+    }
+
+    public List<Refund> getRefunds() {
+        return refunds;
+    }
+
+    public void setRefunds(List<Refund> refunds) {
+        this.refunds = refunds;
     }
 }

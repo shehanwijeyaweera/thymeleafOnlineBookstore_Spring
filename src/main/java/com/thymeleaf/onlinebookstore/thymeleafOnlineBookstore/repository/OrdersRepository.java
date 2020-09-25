@@ -14,4 +14,7 @@ public interface OrdersRepository extends JpaRepository<Customer_orders, Long> {
 
     @Query("SELECT SUM(i.total) FROM Customer_orders i")
     double sumofsale();
+
+    @Query("SELECT i from Customer_orders i WHERE i.id = ?1")
+    Customer_orders findOrderbyId(Long order_id);
 }

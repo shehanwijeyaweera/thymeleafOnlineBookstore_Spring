@@ -120,9 +120,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false"> <i class="menu-icon fa fa-exclamation-circle"></i>Refunds</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">View All Refund Requests</a></li>
-                        <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Refunded Refunds</a></li>
-                        <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Rejected Refunds</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/refund}">View All Refund Requests</a></li>
+                        <li><i class="fa fa-id-badge"></i><a th:href="@{/adminbook/refund/accepted}">Refunded Refunds</a></li>
+                        <li><i class="fa fa-id-badge"></i><a th:href="@{/adminbook/refund/rejected}">Rejected Refunds</a></li>
 
                     </ul>
                 </li>

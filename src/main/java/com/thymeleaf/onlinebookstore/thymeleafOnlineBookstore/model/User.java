@@ -34,6 +34,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Customer_orders> orders = new HashSet<Customer_orders>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Refund> refunds;
+
     public User() {
     }
 
@@ -118,5 +121,29 @@ public class User {
 
     public void setUserRole(Collection<Role> userRole) {
         this.userRole = userRole;
+    }
+
+    public List<Complaint> getComplaints() {
+        return complaints;
+    }
+
+    public void setComplaints(List<Complaint> complaints) {
+        this.complaints = complaints;
+    }
+
+    public Set<Customer_orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Customer_orders> orders) {
+        this.orders = orders;
+    }
+
+    public List<Refund> getRefunds() {
+        return refunds;
+    }
+
+    public void setRefunds(List<Refund> refunds) {
+        this.refunds = refunds;
     }
 }

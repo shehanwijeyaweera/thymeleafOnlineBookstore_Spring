@@ -31,7 +31,7 @@
                             <td th:text="${order.datecreation}"></td>
                             <td th:text="${order.status}"></td>
                             <td><a th:href="@{'/customer/order/' + ${order.id}}" class="btn btn-primary">View</a>
-                            <td><a th:href="@{'/customer/order/' + ${order.id}}" class="btn btn-primary">Request</a>
+                            <td><a th:href="@{'/customer/refundreq/' + ${order.id}}" class="btn btn-primary">Request</a>
                         </tr>
                         </tbody>
                     </table>

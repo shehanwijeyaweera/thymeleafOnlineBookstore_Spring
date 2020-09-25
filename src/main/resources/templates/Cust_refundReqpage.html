@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="Cust_fragments :: html_head"/>
+
+<body>
+<!--page header-->
+<nav th:replace="Cust_fragments :: page_header"/>
+<!--navbar-->
+<nav th:replace="Cust_fragments :: navigation_bar"/>
+
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">Refund Request form for Order ID: &nbsp;<span th:text="${order_id}"> </span></h3>
+            <form method="POST" class="contactForm" th:object="${refund}" th:action="@{'/customer/refundreq/save/'+${order_id}}">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="label">State Reason Below</label>
+                            <textarea th:field="*{reason}" class="form-control" id="reason" cols="30" rows="4" placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="submit" value="Send Message" class="btn btn-primary">
+                            <div class="submitting"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="Cust_fragments :: footer"/>
+<!--scripts-->
+<div th:replace="Cust_fragments :: scripts"/>
+
+</body>
+
+</html>
