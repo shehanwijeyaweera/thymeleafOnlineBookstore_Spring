@@ -53,10 +53,7 @@
                     <input id="user_phoneNo" class = "form-control" th:field="*{user_phoneNo}" required autofocus="autofocus" />
                 </div>
                 <div class = "form-group">
-                    <label class = "control-label" for="user_fName">
-                        User Role
-                    </label>
-                    <input id="userRole" class = "form-control" th:field="*{userRole}" required autofocus="autofocus" />
+                    <input id="userRole" type="hidden" th:value="User" class = "form-control" th:field="*{userRole}" required autofocus="autofocus" />
                 </div>
                 <div class = "form-group">
                     <label class = "control-label" for="user_fName">
