@@ -40,11 +40,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Requestbook> requestbooks;
 
+    private boolean enabled;
+    private String verificationCode;
 
     public User() {
     }
 
-    public User(String username, String password, String user_fName, String user_lName, String user_email, int user_phoneNo, String user_address, Collection<Role> userRole) {
+    public User(String username, String password, String user_fName, String user_lName, String user_email, int user_phoneNo, String user_address, Collection<Role> userRole, boolean enabled, String verificationCode) {
         this.username = username;
         this.password = password;
         this.user_fName = user_fName;
@@ -53,6 +55,8 @@ public class User {
         this.user_phoneNo = user_phoneNo;
         this.user_address = user_address;
         this.userRole = userRole;
+        this.enabled = enabled;
+        this.verificationCode = verificationCode;
     }
 
     public Long getId() {
@@ -157,5 +161,21 @@ public class User {
 
     public void setRequestbooks(List<Requestbook> requestbooks) {
         this.requestbooks = requestbooks;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

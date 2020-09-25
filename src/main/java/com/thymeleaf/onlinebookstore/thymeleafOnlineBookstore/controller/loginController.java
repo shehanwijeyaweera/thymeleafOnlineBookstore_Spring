@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class loginController {
 
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/login")
     public String login(){
@@ -44,6 +46,11 @@ public class loginController {
         return "admin_singleBookView";
     }
 
+    @GetMapping("/userverifypage")
+    private String verifypageUser(){
+        return "registrationSuccessful";
+    }
+
     @GetMapping("/")
     public String pageRedirection(Model model)
     {
@@ -56,7 +63,23 @@ public class loginController {
         }
         if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("User")))
         {
-            return "Customer_homepage";
+            String username;
+
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+
+            User user= userRepository.findByUsername(username);
+
+            if(user.isEnabled() == false) {
+                return "redirect:/userverifypage";
+            }
+            else {
+                return "Customer_homepage";
+            }
         }
         if(authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("Storeworker")))
         {

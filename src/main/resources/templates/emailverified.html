@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header-->
+<head th:replace="fragments :: html_head" />
+
+<body>
+
+<!--navbar-->
+<nav th:replace="fragments :: html_navbar" />
+
+<!--registration form-->
+<br>
+<br>
+<div class="container" align="center">
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+
+            <h1>Email Verified Successful!</h1>
+            <a th:href="@{/login}">Login</a>
+
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="fragments :: html_footer"/>
+</body>
+</html>

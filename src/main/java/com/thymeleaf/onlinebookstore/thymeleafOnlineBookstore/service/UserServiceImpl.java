@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserRegistrationDto registrationDto) {
-        User user = new User(registrationDto.getUsername(),passwordEncoder.encode(registrationDto.getPassword()),registrationDto.getUser_fName(),registrationDto.getUser_lName(),registrationDto.getUser_email(),registrationDto.getUser_phoneNo(),registrationDto.getUser_address(), Arrays.asList(new Role(registrationDto.getUserRole())));
+        User user = new User(registrationDto.getUsername(),passwordEncoder.encode(registrationDto.getPassword()),registrationDto.getUser_fName(),registrationDto.getUser_lName(),registrationDto.getUser_email(),registrationDto.getUser_phoneNo(),registrationDto.getUser_address(), Arrays.asList(new Role(registrationDto.getUserRole())), registrationDto.isEnabled(),registrationDto.getVerificationCode());
 
         return userRepository.save(user);
     }

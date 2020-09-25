@@ -9,6 +9,8 @@ public class UserRegistrationDto {
     private String userRole;
     private String username;
     private String password;
+    private boolean enabled;
+    private String verificationCode;
 
     public UserRegistrationDto(String user_fName, String user_lName, String user_email, String user_address, int user_phoneNo, String userRole, String username, String password) {
         this.user_fName = user_fName;
@@ -86,5 +88,21 @@ public class UserRegistrationDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
