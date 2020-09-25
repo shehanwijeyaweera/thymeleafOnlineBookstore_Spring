@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RefundRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RequestBookRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class CustomerBookController {
 
     @Autowired
     private RefundRepository refundRepository;
+
+    @Autowired
+    private RequestBookRepository requestBookRepository;
 
     //display list of books
     @GetMapping("book")
@@ -222,7 +226,7 @@ public class CustomerBookController {
 
         User user= userRepository.findByUsername(username);
 
-        List<Customer_orders> ordersList = ordersService.getCustomerOrders(user.getId());
+        List<Customer_orders> ordersList = ordersRepository.getCustomerOrders(user.getId());
         model.addAttribute("customer_orders", ordersList);
 
         return "Cust_showAllOrders";
@@ -272,6 +276,36 @@ public class CustomerBookController {
         return "redirect:/customer/order";
     }
 
+    //show Book request form
+    @RequestMapping("requestBook")
+    public String RequestRefundForm(Model model, Requestbook requestbook){
+        return "Cust_bookrequestForm";
+    }
 
+    @PostMapping("requestbook/save")
+    public String BookRequestSave(@ModelAttribute("requestbook") Requestbook requestbook){
+
+        String username;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user= userRepository.findByUsername(username);
+
+        Requestbook requestbook1 = new Requestbook();
+
+        requestbook1.setUser(user);
+        requestbook1.setReqDate(new Date());
+        requestbook1.setBookName(requestbook.getBookName());
+        requestbook1.setQuantity(requestbook.getQuantity());
+        requestBookRepository.save(requestbook1);
+
+        return "Cust_requestBookSuccess";
+
+    }
 
 }

@@ -37,6 +37,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Refund> refunds;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Requestbook> requestbooks;
+
     public User() {
     }
 
@@ -145,5 +148,13 @@ public class User {
 
     public void setRefunds(List<Refund> refunds) {
         this.refunds = refunds;
+    }
+
+    public List<Requestbook> getRequestbooks() {
+        return requestbooks;
+    }
+
+    public void setRequestbooks(List<Requestbook> requestbooks) {
+        this.requestbooks = requestbooks;
     }
 }

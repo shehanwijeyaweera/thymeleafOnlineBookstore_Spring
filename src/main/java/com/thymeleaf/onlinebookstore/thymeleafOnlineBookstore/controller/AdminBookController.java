@@ -1,10 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller;
 
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRepository;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RefundRepository;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/adminbook/")
@@ -60,6 +56,9 @@ public class AdminBookController {
 
     @Autowired
     private RefundRepository refundRepository;
+
+    @Autowired
+    private RequestBookRepository requestBookRepository;
 
 
     //display list of Authors
@@ -343,5 +342,11 @@ public class AdminBookController {
         List<Refund> refund = refundRepository.getAllRejectedRefundReqs();
         model.addAttribute("RejectedReqs", refund);
         return "admin_showAllRejectedReqs";
+    }
+
+    @GetMapping("requestBook")
+    private String showALlbookRequests(Model model){
+        model.addAttribute("listofbookreq", requestBookRepository.findAll());
+        return "admin_showAllBookRequests";
     }
 }
