@@ -32,11 +32,10 @@
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Actions</th>
-                                    <th>Mark as shipped</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="order : ${listOrders}">
+                                <tr th:each="order : ${listshippedOrders}">
                                     <td th:text="${order.id}"></td>
                                     <td th:text="${order.datecreation}"></td>
                                     <td th:text="${order.name}"></td>
@@ -44,7 +43,6 @@
                                     <td th:text="${order.user.user_fName}"></td>
                                     <td th:text="${order.user.user_lName}"></td>
                                     <td><a th:href="@{'/adminbook/order/' + ${order.id}}" class="btn btn-primary">View</a>
-                                    <td align="center"><a th:href="@{'/storeworker/shipped/' + ${order.id}}" class="btn btn-success"><i class="fa fa-truck"> </i></a>
                                     </td>
                                 </tr>
                                 </tbody>

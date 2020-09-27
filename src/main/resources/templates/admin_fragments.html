@@ -70,8 +70,8 @@
     </style>
 </head>
 <body>
-<!--left panel-->
-<aside th:fragment="side_nav" id="left-panel" class="left-panel">
+<!--Admin left panel-->
+<aside sec:authorize="hasAuthority('Admin')" th:fragment="side_nav" id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -128,7 +128,46 @@
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false"> <i class="menu-icon fa fa-file-alt"></i>Requests</a>
+                       aria-expanded="false"> <i class="menu-icon fa fa-inbox"></i>Requests</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/requestBook}">View All Book Requests</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Users</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/users/list}">View All Users</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/adminaddUser}">Add User</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>
+<!--Store worker left panel-->
+<aside sec:authorize="hasAuthority('Storeworker')" th:fragment="side_nav" id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a th:href="@{/storeworker/homepage}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                </li>
+                <li class="menu-title">Manage</li><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"> <i class="menu-icon fa fa-shopping-cart"></i>Orders</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/order}">View All Orders</a></li>
+                        <li><i class="fa fa-id-badge"></i><a th:href="@{/adminbook/shippedOrders}">Shipped Orders</a></li>
+                        <li><i class="fa fa-id-badge"></i><a th:href="@{/adminbook/pendingOrders}">Pending Orders</a></li>
+
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"> <i class="menu-icon fa fa-inbox"></i>Requests</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-puzzle-piece"></i><a th:href="@{/adminbook/requestBook}">View All Book Requests</a></li>
                     </ul>

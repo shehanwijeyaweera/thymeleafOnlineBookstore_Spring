@@ -17,4 +17,15 @@ public interface OrdersRepository extends JpaRepository<Customer_orders, Long> {
 
     @Query("SELECT i from Customer_orders i WHERE i.id = ?1")
     Customer_orders findOrderbyId(Long order_id);
+
+    @Query("SELECT i from Customer_orders i WHERE i.status = 'shipped'")
+    List<Customer_orders> getAllshippedOrders();
+
+    @Query("SELECT i from Customer_orders i WHERE i.status = 'Pending'")
+    List<Customer_orders> getAllPendingOrders();
+
+    @Query("SELECT i from Customer_orders  i WHERE i.name = 'New Order'")
+    List<Customer_orders> getAllNewOrders();
+
+
 }

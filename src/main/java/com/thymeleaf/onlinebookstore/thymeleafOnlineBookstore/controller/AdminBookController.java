@@ -236,7 +236,8 @@ public class AdminBookController {
     //display list of orders
     @GetMapping("order")
     public String ViewAllOrders(Model model){
-        model.addAttribute("listOrders", ordersService.getAllOrders());
+        List<Customer_orders> customer_orders = ordersRepository.getAllNewOrders();
+        model.addAttribute("listOrders", customer_orders);
         return "admin_viewAllOrders";
     }
 
@@ -348,5 +349,19 @@ public class AdminBookController {
     private String showALlbookRequests(Model model){
         model.addAttribute("listofbookreq", requestBookRepository.findAll());
         return "admin_showAllBookRequests";
+    }
+
+    @GetMapping("shippedOrders")
+    private String viewAllshippedOrders(Model model){
+        List<Customer_orders> customer_orders = ordersRepository.getAllshippedOrders();
+        model.addAttribute("listshippedOrders", customer_orders);
+        return "admin_viewAllShippedOrders";
+    }
+
+    @GetMapping("pendingOrders")
+    private String viewAllPendingOrders(Model model){
+        List<Customer_orders> customer_orders = ordersRepository.getAllPendingOrders();
+        model.addAttribute("listpendingOrders", customer_orders);
+        return "admin_viewAllPendingOrders";
     }
 }

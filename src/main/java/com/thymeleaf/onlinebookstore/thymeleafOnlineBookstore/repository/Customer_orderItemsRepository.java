@@ -10,6 +10,10 @@ import java.util.List;
 
 @Repository
 public interface Customer_orderItemsRepository extends JpaRepository<Customer_orderItems, Long> {
+
+    @Query("SELECT SUM(i.quantity) FROM Customer_orderItems i")
+    int sumofbooksold();
+
     @Query("SELECT i FROM Customer_orderItems i WHERE i.customer_orders.id = ?1")
     List<Customer_orderItems> getMyItems(long order_id);
 }
