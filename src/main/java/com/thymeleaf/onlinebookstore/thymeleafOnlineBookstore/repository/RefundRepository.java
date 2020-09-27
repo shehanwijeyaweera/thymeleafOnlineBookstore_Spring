@@ -21,4 +21,7 @@ public interface RefundRepository extends JpaRepository<Refund, Long> {
 
     @Query("SELECT i from Refund i where i.customer_orders.status = 'Rejected'")
     List<Refund> getAllRejectedRefundReqs();
+
+    @Query("SELECT i from Refund i where i.customer_orders.status = 'Refunded' or i.customer_orders.status = 'Rejected' AND i.customer_orders.user.id = ?1")
+    List<Refund> getCustomerResponededreq(Long id);
 }

@@ -9,6 +9,7 @@ import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRep
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -284,9 +285,7 @@ public class CustomerBookController {
 
     @PostMapping("requestbook/save")
     public String BookRequestSave(@ModelAttribute("requestbook") Requestbook requestbook){
-
         String username;
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
@@ -306,6 +305,24 @@ public class CustomerBookController {
 
         return "Cust_requestBookSuccess";
 
+    }
+
+    @GetMapping("/showRefundResponse")
+    private String showRefundReqRespond(Model model){
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user= userRepository.findByUsername(username);
+
+        List<Refund> refund = refundRepository.getCustomerResponededreq(user.getId());
+
+        model.addAttribute("respondedreqs", refund);
+        return "Cust_respondedRefundreqs";
     }
 
 }

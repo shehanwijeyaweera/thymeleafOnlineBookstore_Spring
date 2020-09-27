@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- header-->
+<head th:replace="Cust_fragments :: html_head"/>
+
+<body>
+<!--page header-->
+<nav th:replace="Cust_fragments :: page_header"/>
+<!--navbar-->
+<nav th:replace="Cust_fragments :: navigation_bar"/>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <form th:action="@{/customer/refund/request}" method="post">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date Purchased</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Response</th>
+                            <th>Action</th>
+                            <th>Refund</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="respond : ${respondedreqs}">
+                            <td th:text="${respond.customer_orders.datecreation}"></td>
+                            <td th:text="${respond.customer_orders.id}"></td>
+                            <td th:text="${respond.reason}"></td>
+                            <td th:text="${respond.customer_orders.status}"></td>
+                            <td><a th:href="@{'/customer/order/' + ${respond.customer_orders.id}}" class="btn btn-primary">View</a>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="Cust_fragments :: footer"/>
+<!--scripts-->
+<div th:replace="Cust_fragments :: scripts"/>
+
+</body>
+
+</html>
