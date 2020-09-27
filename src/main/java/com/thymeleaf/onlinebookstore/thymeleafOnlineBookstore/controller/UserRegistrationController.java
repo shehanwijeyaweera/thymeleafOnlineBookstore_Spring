@@ -8,6 +8,8 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,13 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) throws UnsupportedEncodingException, MessagingException {
+
+
+
+        if(userRepository.findByUsername(registrationDto.getUsername()) != null ){
+            return "redirect:/registration?usernametaken";
+        }
+
         registrationDto.setUserRole("User");
         registrationDto.setEnabled(false);
 

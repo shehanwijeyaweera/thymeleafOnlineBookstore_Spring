@@ -18,6 +18,9 @@
             <div th:if="${param.success}">
                 <div class = "alert alert-info">Successfully registered!</div>
             </div>
+            <div th:if="${param.usernametaken}">
+                <div class = "alert alert-danger">Username already Taken!</div>
+            </div>
 
             <h1>Register</h1>
 
