@@ -45,6 +45,7 @@
                                     <td th:text="${order.user.user_lName}"></td>
                                     <td><a th:href="@{'/adminbook/order/' + ${order.id}}" class="btn btn-primary">View</a>
                                     <td align="center"><a th:href="@{'/storeworker/shipped/' + ${order.id}}" class="btn btn-success"><i class="fa fa-truck"> </i></a>
+                                    <a th:href="@{'/storeworker/shippedrejected/' + ${order.id}}" class="btn btn-danger"><i class="fa fa-truck"> </i></a>
                                     </td>
                                 </tr>
                                 </tbody>

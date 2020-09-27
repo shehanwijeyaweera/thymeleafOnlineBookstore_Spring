@@ -68,4 +68,13 @@ public class StoreworkerController {
         ordersRepository.save(customer_orders);
         return "redirect:/adminbook/order";
     }
+
+    @GetMapping("shippedrejected/{order_id}")
+    public String markAsRejected(@PathVariable("order_id")Long order_id){
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(order_id);
+        customer_orders.setName("shipment rejected");
+        customer_orders.setStatus("shipment rejected");
+        ordersRepository.save(customer_orders);
+        return "redirect:/adminbook/order";
+    }
 }
