@@ -58,6 +58,7 @@
                                     </td>
                                     <td><a th:href="@{'/adminbook/show/' + ${book.bookId}}" class="btn btn-primary">View</a>
                                         <a th:href="@{/adminbook/deleteBook/{bookId}(bookId=${book.bookId})}" class="btn btn-danger">Delete</a>
+                                        <a th:href="@{/adminbook/book/edit/{bookId}(bookId=${book.bookId})}" class="btn btn-primary">Update</a>
                                     </td>
                                     <!--            <td> <a th:href="@{/adminbook/showFormUpdate/{author_id}(author_id=${author.author_id})}" class="btn btn-primary">Edit</a>-->
                                     <!--                <a th:href="@{/adminbook/deleteAuthor/{author_id}(author_id=${author.author_id})}" class="btn btn-danger">Delete</a>-->

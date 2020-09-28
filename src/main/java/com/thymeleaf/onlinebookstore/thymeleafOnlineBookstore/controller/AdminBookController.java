@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/adminbook/")
@@ -81,6 +82,9 @@ public class AdminBookController {
     @PostMapping("saveAuthor")
     public String saveAuthor(@ModelAttribute("author") Author author){
         //save author to database
+        if(author.getAuthor_name()==null){
+            return "redirect:/adminbook/showNewAuthorForm?error";
+        }
         authorService.saveAuthor(author);
         return "redirect:/adminbook/authors?success";
     }
@@ -121,6 +125,9 @@ public class AdminBookController {
 
     @PostMapping("saveCategory")
     public String saveCategory(@ModelAttribute("category") Category category){
+        if(category.getCategory_name()==null){
+            return "redirect:/adminbook/showNewCategoryForm?error";
+        }
         categoryService.saveCategory(category);
         return "redirect:/adminbook/category";
     }
@@ -128,6 +135,7 @@ public class AdminBookController {
     @GetMapping("showFormCategoryUpdate/{category_id}")
     public String showFormCategoryUpdate(@PathVariable(value = "category_id") long category_id, Model model){
         //get categories from service
+
         Category category = categoryService.getCategoryById(category_id);
 
         //set category as a model attribute to populate the form
@@ -169,6 +177,9 @@ public class AdminBookController {
 
     @PostMapping("book/create")
     public String saveNewBook(@ModelAttribute("book") Book book, @RequestParam("fileImage")MultipartFile multipartFile) throws IOException {
+        if(book.getTitle()==null||book.getPrice()==null||book.getISBN()==0){
+            return "redirect:/adminbook/book/create?error";
+        }
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         book.setLogo(fileName);
         long id = bookService.create(book);
@@ -190,6 +201,25 @@ public class AdminBookController {
         catch (IOException e){
             throw new IOException("could not save uploaded file: "+ fileName);
         }
+        return "redirect:/adminbook/book";
+    }
+
+    @GetMapping("book/edit/{bookId}")
+    public String viewupdateformBook(Model model,@PathVariable("bookId")Long bookId){
+        Optional<Book> book = bookRepository.findById(bookId);
+        model.addAttribute("book", book);
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
+        List<Author> authors = authorService.getAllAuthors();
+        model.addAttribute("authors", authors);
+
+        return "admin_editBook";
+    }
+
+    @PostMapping("book/edit/save")
+    public String saveNewBook(@ModelAttribute("book") Book book) throws IOException {
+
+        bookRepository.save(book);
         return "redirect:/adminbook/book";
     }
 

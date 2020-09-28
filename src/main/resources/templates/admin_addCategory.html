@@ -15,7 +15,9 @@
 
         <div class="container col-6">
             <h2>Add new Category</h2>
-
+            <div th:if="${param.error}">
+                <div class = "alert alert-info"> Name can not be empty</div>
+            </div>
             <form action="#" th:action="@{/adminbook/saveCategory}" th:object="${category}" method="post">
                 <input type="text" th:field="*{category_name}" placeholder="Category Name" class="form-control mb-4">
 

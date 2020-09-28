@@ -15,6 +15,9 @@
 
         <div class="container col-6">
             <h2>Add new Author</h2>
+            <div th:if="${param.error}">
+                <div class = "alert alert-info">Name can not be empty</div>
+            </div>
 
             <form action="#" th:action="@{/adminbook/saveAuthor}" th:object="${author}" method="post">
                 <input type="text" th:field="*{author_name}" placeholder="Author Full Name" class="form-control mb-4">

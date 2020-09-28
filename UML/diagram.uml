@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="278.47806186868695" y="3876.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem</node>
+    <node x="842.5776515151515" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Student</node>
+    <node x="201.47806186868695" y="3089.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book</node>
+    <node x="212.57765151515156" y="99.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Role</node>
+    <node x="393.57765151515156" y="66.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Complaint</node>
+    <node x="0.0" y="2692.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category</node>
+    <node x="353.60306186868684" y="1526.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund</node>
+    <node x="453.0" y="2626.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems</node>
+    <node x="609.5776515151515" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Requestbook</node>
+    <node x="232.0" y="2692.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author</node>
+    <node x="420.2947048611111" y="2015.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders</node>
+    <node x="455.80859374999994" y="433.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Complaint">
+      <point x="-51.56249999999994" y="-511.5" />
+      <point x="541.74609375" y="393.0" />
+      <point x="442.57765151515156" y="393.0" />
+      <point x="-49.0" y="115.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category">
+      <point x="-141.81818181818198" y="-368.5" />
+      <point x="215.65988005050497" y="3069.0" />
+      <point x="26.5" y="3069.0" />
+      <point x="-79.5" y="115.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems">
+      <point x="45.0" y="280.5" />
+      <point x="645.2947048611111" y="2601.0" />
+      <point x="626.75" y="2601.0" />
+      <point x="34.75" y="-181.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders">
+      <point x="-104.25" y="-181.5" />
+      <point x="487.75" y="2601.0" />
+      <point x="465.2947048611111" y="2601.0" />
+      <point x="-135.0" y="280.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User">
+      <point x="-104.25" y="-214.5" />
+      <point x="388.35306186868684" y="1496.0" />
+      <point x="471.0863715277777" y="1496.0" />
+      <point x="-122.22222222222223" y="511.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User">
+      <point x="40.0" y="-280.5" />
+      <point x="640.2947048611111" y="1995.0" />
+      <point x="653.1030618686868" y="1995.0" />
+      <point x="653.1030618686868" y="1486.0" />
+      <point x="623.8641493055555" y="1486.0" />
+      <point x="30.555555555555543" y="511.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book">
+      <point x="-39.5" y="-82.5" />
+      <point x="317.97806186868695" y="3851.0" />
+      <point x="279.47806186868695" y="3851.0" />
+      <point x="-78.0" y="368.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Role">
+      <point x="-120.31249999999994" y="-511.5" />
+      <point x="472.99609375" y="413.0" />
+      <point x="252.82765151515156" y="413.0" />
+      <point x="-40.25" y="82.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund">
+      <point x="-61.11111111111114" y="511.5" />
+      <point x="532.1974826388888" y="1506.0" />
+      <point x="527.3530618686868" y="1506.0" />
+      <point x="34.75" y="-214.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Requestbook">
+      <point x="17.187500000000057" y="-511.5" />
+      <point x="610.49609375" y="413.0" />
+      <point x="633.0776515151515" y="413.0" />
+      <point x="-70.5" y="181.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book">
+      <point x="0.0" y="181.5" />
+      <point x="592.0" y="3059.0" />
+      <point x="470.93260732323233" y="3059.0" />
+      <point x="113.45454545454538" y="-368.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book">
+      <point x="25.125" y="115.5" />
+      <point x="357.625" y="3009.0" />
+      <point x="385.8416982323232" y="3009.0" />
+      <point x="28.36363636363626" y="-368.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders">
+      <point x="122.22222222222221" y="511.5" />
+      <point x="715.5308159722222" y="1506.0" />
+      <point x="686.1030618686868" y="1506.0" />
+      <point x="686.1030618686868" y="1975.0" />
+      <point x="760.2947048611111" y="1975.0" />
+      <point x="160.0" y="-280.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders">
+      <point x="34.75" y="214.5" />
+      <point x="527.3530618686868" y="1995.0" />
+      <point x="520.2947048611111" y="1995.0" />
+      <point x="-80.0" y="-280.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Requestbook" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User">
+      <point x="23.499999999999943" y="181.5" />
+      <point x="727.0776515151515" y="403.0" />
+      <point x="679.24609375" y="403.0" />
+      <point x="85.93750000000004" y="-511.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems">
+      <point x="85.09090909090901" y="-368.5" />
+      <point x="442.56897095959596" y="3049.0" />
+      <point x="499.3333333333333" y="3049.0" />
+      <point x="-92.66666666666669" y="181.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author">
+      <point x="-28.363636363636488" y="-368.5" />
+      <point x="329.11442550505046" y="3029.0" />
+      <point x="257.125" y="3029.0" />
+      <point x="-75.375" y="115.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund">
+      <point x="-160.0" y="-280.5" />
+      <point x="440.2947048611111" y="1995.0" />
+      <point x="388.35306186868684" y="1995.0" />
+      <point x="-104.25" y="214.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book">
+      <point x="26.5" y="115.5" />
+      <point x="132.5" y="3049.0" />
+      <point x="272.3871527777777" y="3049.0" />
+      <point x="-85.09090909090924" y="-368.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="507.5" y="2020.5" />
+  <SelectedNodes>
+    <node>com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

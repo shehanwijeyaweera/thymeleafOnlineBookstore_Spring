@@ -100,7 +100,7 @@ public class CustomerBookController {
 
     //add cart function
     @RequestMapping("buy/{bookId}")
-    public String buy(@PathVariable("bookId") Long bookId, Model model, HttpSession session){
+    public String addtocart(@PathVariable("bookId") Long bookId, Model model, HttpSession session){
         if(session.getAttribute("cart")==null){
             List<CartItem> cartItems = new ArrayList<CartItem>();
             cartItems.add(new CartItem(bookService.findById(bookId), 1));

@@ -15,6 +15,4 @@ public interface OrdersService {
 
      List<Customer_orders> getCustomerOrders(long user_id);
 
-
-
 }

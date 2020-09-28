@@ -27,8 +27,8 @@
                 <div class="details col-md-6">
                     <h3 th:text="${book.title}" class="product-title"></h3>
                     <div class="rating">
-                        <th:block th:each="category : ${book.categories}">
-                            <span th:text="${category.category_name}" class="review-no"></span>
+                        <th:block th:each="author : ${book.authors}">
+                            <span th:text="${author.author_name}" class="review-no"></span>
                         </th:block>
                     </div>
                     <p class="product-description" th:text="${book.description}"></p>

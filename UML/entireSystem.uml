@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="357.0" y="1217.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryServiceImpl</node>
+    <node x="699.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.CartItem</node>
+    <node x="998.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.BookRepository</node>
+    <node x="941.0" y="1046.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book</node>
+    <node x="678.5" y="1046.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService</node>
+    <node x="856.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Role</node>
+    <node x="1511.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RequestBookRepository</node>
+    <node x="1781.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Category</node>
+    <node x="794.0" y="237.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookServiceImpl</node>
+    <node x="660.0" y="1217.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorServiceImpl</node>
+    <node x="1265.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository</node>
+    <node x="0.0" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.AdminBookController</node>
+    <node x="0.0" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.loginController</node>
+    <node x="538.0" y="1576.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsServiceImpl</node>
+    <node x="0.0" y="1046.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService</node>
+    <node x="397.0" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.CustomerBookController</node>
+    <node x="0.0" y="2079.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.AuthorRepository</node>
+    <node x="973.0" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.UserController</node>
+    <node x="359.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.Customer_orderItemsRepository</node>
+    <node x="182.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Complaint</node>
+    <node x="794.0" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService</node>
+    <node x="283.5" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.RefundService</node>
+    <node x="1772.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.CategoryRepository</node>
+    <node x="986.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.RefundRepository</node>
+    <node x="376.0" y="1046.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService</node>
+    <node x="1298.0" y="1150.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserServiceImpl</node>
+    <node x="1437.5" y="1046.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserService</node>
+    <node x="357.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Refund</node>
+    <node x="585.5" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsService</node>
+    <node x="1600.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Requestbook</node>
+    <node x="256.0" y="1577.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.RefundServiceImpl</node>
+    <node x="1150.0" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.StoreworkerController</node>
+    <node x="616.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.config.SecurityConfiguration</node>
+    <node x="0.0" y="1239.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersServiceImpl</node>
+    <node x="1341.0" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.controller.UserRegistrationController</node>
+    <node x="0.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.OrdersRepository</node>
+    <node x="1341.0" y="1726.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orderItems</node>
+    <node x="0.0" y="1936.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Author</node>
+    <node x="1689.0" y="1450.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders</node>
+    <node x="1585.0" y="0.0">com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.RefundServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.RefundService">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService">
+      <point x="0.0" y="-105.0" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserService">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService">
+      <point x="0.0" y="-83.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.CategoryService">
+      <point x="0.0" y="-72.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.AuthorService">
+      <point x="0.0" y="-72.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsServiceImpl" target="com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsService">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="38.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="5111.5" y="1360.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
