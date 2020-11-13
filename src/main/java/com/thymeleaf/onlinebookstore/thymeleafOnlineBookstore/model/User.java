@@ -1,5 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -18,6 +20,7 @@ public class User {
     private int user_phoneNo;
     private String user_address;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -27,16 +30,20 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> userRole;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "complaint_fid", referencedColumnName = "id")
     private List<Complaint> complaints = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Customer_orders> orders = new HashSet<Customer_orders>(0);
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Refund> refunds;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Requestbook> requestbooks;
 

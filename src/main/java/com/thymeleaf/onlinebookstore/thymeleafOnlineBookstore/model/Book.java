@@ -1,5 +1,6 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Book {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pubdate;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "book_category",
             joinColumns = { @JoinColumn(name = "bookId")},
@@ -41,6 +43,7 @@ public class Book {
     )
     private Set<Author> authors = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
     private List<Customer_orderItems> customer_orderItems = new ArrayList<>();
 
