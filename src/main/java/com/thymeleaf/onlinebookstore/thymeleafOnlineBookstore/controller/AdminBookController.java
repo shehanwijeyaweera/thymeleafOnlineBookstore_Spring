@@ -219,8 +219,11 @@ public class AdminBookController {
     @PostMapping("book/edit/save")
     public String saveNewBook(@ModelAttribute("book") Book book) throws IOException {
 
+        Book bookedited = bookService.findById(book.getBookId());
+        String ImgLocation = bookedited.getLogo();
+        book.setLogo(ImgLocation);
         bookRepository.save(book);
-        return "redirect:/adminbook/book";
+        return "redirect:/adminbook/adminViewallbooks";
     }
 
     @GetMapping("page/{pageNo}")
