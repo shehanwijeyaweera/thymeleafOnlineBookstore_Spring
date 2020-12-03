@@ -1,5 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,8 +14,7 @@ public class Customer_orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid")
     private User user;
     private String name;
@@ -22,9 +23,11 @@ public class Customer_orders {
     private String status;
     private double total;
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
     private List<Customer_orderItems> customer_orderItems;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer_orders")
     private  List<Refund> refunds;
 

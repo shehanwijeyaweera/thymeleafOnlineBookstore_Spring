@@ -3,8 +3,9 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.API;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.UserRepository;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserService;
 import net.minidev.json.JSONObject;
@@ -29,6 +30,19 @@ public class UserControllerAPI {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private OrdersRepository ordersRepository;
+
+    @Autowired
+    private RefundRepository refundRepository;
+
+    @Autowired
+    private RequestBookRepository requestBookRepository;
+
+
 
     @GetMapping("/users")
     public List<User> getAllUsers(){
@@ -38,11 +52,6 @@ public class UserControllerAPI {
     @GetMapping("/books")
     public List<Book> getallbooks(){
         return bookService.getAllBooks();
-    }
-
-    @GetMapping("/orders")
-    public List<Customer_orders> getallorders(){
-        return ordersService.getAllOrders();
     }
 
     @GetMapping("/book/{id}")
@@ -59,9 +68,9 @@ public class UserControllerAPI {
         if(user !=null){
             if(userService.passwordencode(password,pass)){
 
-                obj.put("username", user.getUsername());
-                obj.put("userRole", user.getUserRole());
+                obj.put("user", user);
                 obj.put("Response", "Correct");
+                obj.put("Role", user.getUserRole());
                 return obj;
             }
             else {
@@ -71,10 +80,44 @@ public class UserControllerAPI {
                 obj.put("Response", "Wrong");
                 return obj;
             }
+        }else{
+            obj.put("username", "Error");
+            obj.put("userRole", "Error");
+            obj.put("Response", "Error");
+            return obj;
         }
-        obj.put("username", "Error");
-        obj.put("userRole", "Error");
-        obj.put("Response", "Error");
+
+    }
+
+    @GetMapping("/admindashboard")
+    public JSONObject dashboardDetails(){
+        JSONObject obj = new JSONObject();
+        obj.put("listOrders", ordersService.getAllOrders().size());
+        obj.put("allcustomers", userRepository.findAll().size());
+        obj.put("allbooks", bookRepository.findAll().size());
+        obj.put("totalsales", ordersRepository.sumofsale());
+        obj.put("totalrefunds", refundRepository.getAllNotResponedRefundReq().size());
+        obj.put("bookRequest", requestBookRepository.findAll().size());
+
         return obj;
     }
+
+    @GetMapping("/custorders")
+    public List<Customer_orders> getAllCustomerOrders(){
+        List<Customer_orders> customer_orders = ordersRepository.getAllNewOrders();
+        return customer_orders;
+    }
+
+    @GetMapping("/custpendingorders")
+    public List<Customer_orders> getAllPendingOrders(){
+        List<Customer_orders> customer_orders = ordersRepository.getAllPendingOrders();
+        return customer_orders;
+    }
+
+    @GetMapping("/custshippedorders")
+    public List<Customer_orders> getAllShippedOrders(){
+        List<Customer_orders> customer_orders = ordersRepository.getAllshippedOrders();
+        return customer_orders;
+    }
+
 }

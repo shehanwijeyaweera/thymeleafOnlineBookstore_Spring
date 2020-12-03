@@ -28,7 +28,7 @@ public class Book {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pubdate;
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "book_category",
             joinColumns = { @JoinColumn(name = "bookId")},
@@ -147,5 +147,12 @@ public class Book {
         if (logo == null || bookId == null) return null;
 
         return "/logos/" + bookId + "/" + logo;
+    }
+
+    @Transient
+    public String getLogoImagepathApi(){
+        if(logo == null || bookId == null) return null;
+
+        return "http://192.168.8.120:8080/logos/" + bookId + "/" + logo;
     }
 }

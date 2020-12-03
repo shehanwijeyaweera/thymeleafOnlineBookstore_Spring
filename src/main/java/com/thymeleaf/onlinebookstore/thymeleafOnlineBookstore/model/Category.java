@@ -1,5 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Category {
     private Long category_id;
     private String category_name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private Set<Book> books;
 
