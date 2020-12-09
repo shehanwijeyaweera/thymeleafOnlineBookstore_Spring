@@ -1,8 +1,7 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.API;
 
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Book;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.Customer_orders;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.User;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.JSON.Checkout;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsService;
@@ -12,7 +11,10 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -41,6 +43,9 @@ public class UserControllerAPI {
 
     @Autowired
     private RequestBookRepository requestBookRepository;
+
+    @Autowired
+    private Customer_orderItemsService customer_orderItemsService;
 
 
 
@@ -120,4 +125,60 @@ public class UserControllerAPI {
         return customer_orders;
     }
 
+    @GetMapping("/customerorders/{userid}")
+    public List<Customer_orders> getCustomerPastOrders(@PathVariable(value = "userid")Long userid){
+        List<Customer_orders> customer_orders = ordersRepository.getCustomerOrders(userid);
+        return customer_orders;
+    }
+
+    @PostMapping("/checkout/{username}/{total}")
+    public JSONObject checkout(@PathVariable(value = "username") String username, @PathVariable( value = "total") double total, @RequestBody List<CartItem> cartItem){
+
+        String username1 = username;
+        double total1 = total;
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems = cartItem;
+
+        User user = userRepository.findByUsername(username);
+
+        //order creation
+        Customer_orders orders = new Customer_orders();
+        orders.setUser(user);
+        orders.setDatecreation(new Date());
+        orders.setName("New Order");
+        orders.setStatus("Pending");
+        orders.setTotal(total);
+
+        ordersService.saveOrder(orders);
+
+        Long orderId = orders.getId();
+
+        //add order items
+        for(CartItem cartItem1: cartItem){
+            Customer_orderItems customer_orderItems = new Customer_orderItems();
+            customer_orderItems.setBook(cartItem1.getBook());
+            customer_orderItems.setCustomer_orders(orders);
+            customer_orderItems.setPrice(cartItem1.getBook().getPrice());
+            customer_orderItems.setQuantity(cartItem1.getQuantity());
+
+            customer_orderItemsService.saveOrderItem(customer_orderItems);
+        }
+
+        JSONObject obj = new JSONObject();
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @PostMapping("/newUser/register")
+    public JSONObject registerUser(@RequestBody User user){
+
+
+        JSONObject obj = new JSONObject();
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
 }
