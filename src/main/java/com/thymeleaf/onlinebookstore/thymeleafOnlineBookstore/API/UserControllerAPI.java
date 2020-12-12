@@ -58,6 +58,7 @@ public class UserControllerAPI {
     private JavaMailSender mailSender;
 
 
+
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -232,5 +233,26 @@ public class UserControllerAPI {
     public List<Book> getSearchResults(@PathVariable(value = "keyword") String keyword) {
         List<Book> bookList = bookService.findAllSearch(keyword);
         return bookList;
+    }
+
+    @PostMapping("/bookRequest")
+    public JSONObject bookRequestResponse(@RequestBody Requestbook requestbook){
+        JSONObject obj = new JSONObject();
+        Requestbook requestbook1 = new Requestbook();
+        requestbook1 = requestbook;
+
+        String username;
+        username = requestbook1.getUser().getUsername();
+
+        User user = userRepository.findByUsername(username);
+
+        requestbook1.setReqDate(new Date());
+        requestbook1.setUser(user);
+
+        requestBookRepository.save(requestbook1);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+        return obj;
     }
 }
