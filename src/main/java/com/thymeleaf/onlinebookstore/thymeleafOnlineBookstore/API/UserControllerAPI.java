@@ -255,4 +255,32 @@ public class UserControllerAPI {
         obj.put("Response", "Correct");
         return obj;
     }
+
+    @GetMapping("/user/refundReq/{user_id}")
+    public List<Refund> getAllCustomerRefundRequests(@PathVariable(value = "user_id")Long id){
+        List<Refund> refunds = refundRepository.getCustomerResponededreq(id);
+        return refunds;
+    }
+
+    @PostMapping("user/refundReq/{order_id}/{user_id}")
+    public JSONObject RefundRequestResponse(@RequestBody Refund refund,@PathVariable(value = "order_id")Long id,@PathVariable(value = "user_id")Long user_id){
+        JSONObject obj = new JSONObject();
+        Refund refund1 = new Refund();
+        refund1 = refund;
+
+        //get user
+        User user = userRepository.getUserbyId(user_id);
+
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(id);
+
+        refund1.setUser(user);
+        refund1.setReqDate(new Date());
+        refund1.setCustomer_orders(customer_orders);
+
+        refundRepository.save(refund1);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+        return obj;
+    }
 }
