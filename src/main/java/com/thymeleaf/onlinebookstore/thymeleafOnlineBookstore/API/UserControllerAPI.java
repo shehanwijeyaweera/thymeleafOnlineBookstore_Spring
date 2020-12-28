@@ -283,4 +283,43 @@ public class UserControllerAPI {
         obj.put("Response", "Correct");
         return obj;
     }
+
+    @GetMapping("/user/getprofileInfo/{user_id}")
+    public User getUserprofileInfo(@PathVariable(value = "user_id")Long id){
+        User user = userRepository.getUserbyId(id);
+        return user;
+    }
+
+    @PostMapping("/user/updateprofile/{user_id}")
+    public JSONObject updateProfileInfo(@PathVariable(value = "user_id")Long id, @RequestBody User user){
+        JSONObject obj = new JSONObject();
+
+        //get current user data
+        User currentUserDate = userRepository.getUserbyId(id);
+
+        //update data with sent data
+        if(user.getUser_fName()!=null){
+            currentUserDate.setUser_fName(user.getUser_fName());
+        }
+        if(user.getUser_lName()!=null){
+            currentUserDate.setUser_lName(user.getUser_lName());
+        }
+        if(user.getUser_email()!=null){
+            currentUserDate.setUser_email(user.getUser_email());
+        }
+            currentUserDate.setUser_phoneNo(user.getUser_phoneNo());
+
+        if(user.getUser_address()!=null){
+            currentUserDate.setUser_address(user.getUser_address());
+        }
+
+        userRepository.save(currentUserDate);
+
+        String test = "test";
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
 }
