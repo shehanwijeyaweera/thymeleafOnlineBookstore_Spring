@@ -322,4 +322,36 @@ public class UserControllerAPI {
 
         return obj;
     }
+
+    @PostMapping("/admin/updatebook/save/{bookId}")
+    public JSONObject updatebookDetails(@PathVariable(value = "bookId")Long bookId, @RequestBody Book book){
+        JSONObject obj = new JSONObject();
+
+        //get current book data
+        Book currentBookData = bookRepository.findbyBookId(bookId);
+
+        //update data with sent data
+        if(book.getTitle()!=null){
+            currentBookData.setTitle(book.getTitle());
+        }
+        if(book.getPubdate()!=null){
+            currentBookData.setPubdate(book.getPubdate());
+        }
+        if(book.getDescription()!=null){
+            currentBookData.setDescription(book.getDescription());
+        }
+        if(book.getPublisher()!=null){
+            currentBookData.setPublisher(book.getPublisher());
+        }
+        if(book.getPrice()!=null){
+            currentBookData.setPrice(book.getPrice());
+        }
+
+        bookRepository.save(currentBookData);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
 }

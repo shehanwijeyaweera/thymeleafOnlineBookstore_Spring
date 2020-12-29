@@ -12,4 +12,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             + " OR p.publisher LIKE %?1%"
             + " OR p.description LIKE %?1%")
     public List<Book> findAllSearch(String keyword);
+
+    @Query("select i from Book i where i.bookId=?1")
+    Book findbyBookId(Long bookid);
 }
