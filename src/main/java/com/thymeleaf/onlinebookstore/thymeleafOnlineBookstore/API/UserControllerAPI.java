@@ -57,6 +57,13 @@ public class UserControllerAPI {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
+
 
 
     @GetMapping("/users")
@@ -348,6 +355,56 @@ public class UserControllerAPI {
         }
 
         bookRepository.save(currentBookData);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("/admin/categories")
+    public List<Category> getAllCategories(){
+        return categoryRepository.findAll();
+    }
+
+    @GetMapping("/admin/authors")
+    public List<Author> getAllAuthors(){
+        return authorRepository.findAll();
+    }
+
+    @PostMapping("/admin/updateCategory/{categoryid}")
+    public JSONObject updateCategoryDetails(@PathVariable(value = "categoryid")Long categoryID, @RequestBody Category category){
+        JSONObject obj = new JSONObject();
+
+        //get current category data
+        Category currentCategoryData = categoryRepository.findByCategoryID(categoryID);
+
+        //update data with sent data
+        if(category.getCategory_name()!=null){
+            currentCategoryData.setCategory_name(category.getCategory_name());
+        }
+
+        categoryRepository.save(currentCategoryData);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @PostMapping("/admin/updateAuthor/{authorid}")
+    public JSONObject updateAuthorDetails(@PathVariable(value = "authorid")Long authorID, @RequestBody Author author){
+        JSONObject obj = new JSONObject();
+
+        //get current author Data
+        Author currentAuthorData = authorRepository.findByAuthorID(authorID);
+
+        //update with sent data
+        if(author.getAuthor_name()!=null){
+            currentAuthorData.setAuthor_name(author.getAuthor_name());
+        }
+
+        authorRepository.save(currentAuthorData);
 
         obj.put("user", "User");
         obj.put("Response", "Correct");
