@@ -3,10 +3,7 @@ package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.API;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.JSON.Checkout;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.*;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.BookService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.Customer_orderItemsService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.OrdersService;
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.UserService;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.web.dto.UserRegistrationDto;
 import net.bytebuddy.utility.RandomString;
 import net.minidev.json.JSONObject;
@@ -62,6 +59,12 @@ public class UserControllerAPI {
 
     @Autowired
     private AuthorRepository authorRepository;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private AuthorService authorService;
 
 
 
@@ -431,6 +434,34 @@ public class UserControllerAPI {
 
         //delete author
         authorRepository.deleteById(authorID);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @PostMapping("/admin/addnewCategory/save")
+    public JSONObject addNewCategory(@RequestBody Category category){
+        JSONObject obj = new JSONObject();
+
+        if(category.getCategory_name()!=null) {
+            categoryService.saveCategory(category);
+        }
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @PostMapping("/admin/addnewAuthor/save")
+    public JSONObject addNewAuthor(@RequestBody Author author){
+        JSONObject obj = new JSONObject();
+
+        if(author.getAuthor_name()!=null){
+            authorService.saveAuthor(author);
+        }
 
         obj.put("user", "User");
         obj.put("Response", "Correct");
