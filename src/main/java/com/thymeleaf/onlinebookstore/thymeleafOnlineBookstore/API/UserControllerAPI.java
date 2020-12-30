@@ -411,4 +411,30 @@ public class UserControllerAPI {
 
         return obj;
     }
+
+    @GetMapping("/admin/deleteCategory/{categoryid}")
+    public JSONObject deleteCategory(@PathVariable(value = "categoryid")Long categoryID){
+        JSONObject obj = new JSONObject();
+
+        //delete category
+        categoryRepository.deleteById(categoryID);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("/admin/deleteAuthor/{authorID}")
+    public JSONObject deleteAuthor(@PathVariable(value = "authorID")Long authorID){
+        JSONObject obj = new JSONObject();
+
+        //delete author
+        authorRepository.deleteById(authorID);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
 }
