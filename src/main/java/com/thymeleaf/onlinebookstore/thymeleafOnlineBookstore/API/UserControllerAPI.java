@@ -69,6 +69,7 @@ public class UserControllerAPI {
 
 
 
+
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -467,5 +468,62 @@ public class UserControllerAPI {
         obj.put("Response", "Correct");
 
         return obj;
+    }
+
+    @GetMapping("/admin/getAllNonresponededRefundreq")
+    public List<Refund> getAllNonResponededRefundReq(){
+        return refundRepository.getAllNotResponedRefundReq();
+    }
+
+    @GetMapping("/admin/getAllRefundedRefunds")
+    public List<Refund> getAllRefundedRefunds(){
+        return refundRepository.getAllRefundedReqs();
+    }
+
+    @GetMapping("/admin/getAllRejectedRefunds")
+    public List<Refund> getAllRejectedRefunds(){
+        return refundRepository.getAllRejectedRefundReqs();
+    }
+
+    @GetMapping("/admin/acceptRequest/{refundId}")
+    public JSONObject acceptRequest(@PathVariable(value = "refundId")Long refundID){
+        JSONObject obj = new JSONObject();
+        Refund refund = refundRepository.findRefundById(refundID);
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(refund.getCustomer_orders().getId());
+
+        refund.setRespond("responded");
+        customer_orders.setStatus("Refunded");
+
+        refundRepository.save(refund);
+        ordersRepository.save(customer_orders);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("admin/rejectRequest/{refundId}")
+    public JSONObject rejectRequest(@PathVariable(value = "refundId")Long refundID){
+        JSONObject obj = new JSONObject();
+
+        Refund refund = refundRepository.findRefundById(refundID);
+        Customer_orders customer_orders = ordersRepository.findOrderbyId(refund.getCustomer_orders().getId());
+
+        customer_orders.setStatus("Rejected");
+        refund.setRespond("responded");
+
+        refundRepository.save(refund);
+        ordersRepository.save(customer_orders);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("/admin/getAllBookRequests")
+    public List<Requestbook> getAllBookRequests(){
+        return requestBookRepository.findAll();
     }
 }
