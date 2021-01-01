@@ -10,15 +10,21 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -525,5 +531,68 @@ public class UserControllerAPI {
     @GetMapping("/admin/getAllBookRequests")
     public List<Requestbook> getAllBookRequests(){
         return requestBookRepository.findAll();
+    }
+
+    @PostMapping("/admin/savebook/{categoryID}/{authorID}")
+    public JSONObject saveNewBook( @RequestBody Book book, @PathVariable(value = "categoryID") Long categoryid, @PathVariable(value = "authorID")Long  authorid) throws IOException {
+        JSONObject obj = new JSONObject();
+
+        long id = bookService.create(book);
+
+        obj.put("user", "User");
+        obj.put("Response", id);
+
+        return obj;
+    }
+
+
+    @PostMapping("/admin/savebookImage/{bookId}")
+    public JSONObject saveBookImage(@PathVariable("bookId")Long bookID, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+        JSONObject obj = new JSONObject();
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+        Book savedBook = new Book();
+        savedBook = getbookdetails(bookID);
+
+        savedBook.setLogo(fileName);
+
+        bookRepository.save(savedBook);
+
+        long id = savedBook.getBookId();
+
+        String uploadDir = "./logos/" + id;
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        if(!Files.exists(uploadPath)){
+            Files.createDirectories(uploadPath);
+        }
+        try {
+            InputStream inputStream = multipartFile.getInputStream();
+            Path filePath = uploadPath.resolve(fileName);
+            System.out.println(filePath.toFile().getAbsolutePath());
+
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e){
+            throw new IOException("could not save uploaded file: "+ fileName);
+        }
+
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("/admin/addBook/getSpinnerData")
+    public JSONObject sendSpinnerData(){
+        JSONObject obj = new JSONObject();
+
+        obj.put("Category", categoryRepository.findAll());
+        obj.put("Author", authorRepository.findAll());
+
+        return obj;
     }
 }
