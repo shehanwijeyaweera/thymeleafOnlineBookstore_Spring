@@ -76,10 +76,6 @@ public class UserControllerAPI {
 
 
 
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
 
     @GetMapping("/books")
     public List<Book> getallbooks() {
@@ -217,7 +213,7 @@ public class UserControllerAPI {
 
             userService.save(registrationDto);
 
-            //sendVerificationEmail(registrationDto);
+            sendVerificationEmail(registrationDto);
 
             obj.put("user", registrationDto);
             obj.put("Response", "Correct");
@@ -231,7 +227,7 @@ public class UserControllerAPI {
         String senderName = "OnlineBookStore team";
         String mailContent = "<p>Dear " + registrationDto.getUser_fName() + ",</p>";
         mailContent += "<p>Please Click the link below to verify to activate your account: </p>";
-        mailContent += "<a>http://localhost:8080/registration/verify/"+ registrationDto.getVerificationCode() +"/"+registrationDto.getUsername()+"</a>";
+        mailContent += "<a>http://192.168.8.120:8080/registration/verify/"+ registrationDto.getVerificationCode() +"/"+registrationDto.getUsername()+"</a>";
         mailContent += "<p>Thank you <br> The OnlineBookStore Team </p>";
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -608,6 +604,44 @@ public class UserControllerAPI {
 
         obj.put("Category", categoryRepository.findAll());
         obj.put("Author", authorRepository.findAll());
+
+        return obj;
+    }
+
+    @GetMapping("/admin/getAllusers")
+    public List<User> getAllUsers(){
+       return userRepository.findAll();
+    }
+
+    @GetMapping("/admin/deleteUser/{userID}")
+    public JSONObject deleteUser(@PathVariable(value = "userID") Long userID){
+        JSONObject obj = new JSONObject();
+
+        User getUser = userRepository.getUserbyId(userID);
+
+        String test = "test";
+
+        userRepository.delete(getUser);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
+
+        return obj;
+    }
+
+    @GetMapping("/admin/markOrderAsShipped/{orderID}")
+    public JSONObject markOrderAsShipped(@PathVariable(value = "orderID")Long orderID){
+        JSONObject obj = new JSONObject();
+
+        Customer_orders customer_orders = new Customer_orders();
+        customer_orders = ordersRepository.findOrderbyId(orderID);
+
+        customer_orders.setName("shipped");
+        customer_orders.setStatus("shipped");
+        ordersRepository.save(customer_orders);
+
+        obj.put("user", "User");
+        obj.put("Response", "Correct");
 
         return obj;
     }

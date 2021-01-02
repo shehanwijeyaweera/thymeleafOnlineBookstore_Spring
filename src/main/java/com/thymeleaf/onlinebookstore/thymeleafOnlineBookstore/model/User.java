@@ -20,7 +20,7 @@ public class User {
     private int user_phoneNo;
     private String user_address;
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
