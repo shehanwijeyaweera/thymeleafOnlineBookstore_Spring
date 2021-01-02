@@ -537,6 +537,22 @@ public class UserControllerAPI {
     public JSONObject saveNewBook( @RequestBody Book book, @PathVariable(value = "categoryID") Long categoryid, @PathVariable(value = "authorID")Long  authorid) throws IOException {
         JSONObject obj = new JSONObject();
 
+        Author newAuthor = new Author();
+        Category newCategory = new Category();
+
+        newAuthor = authorRepository.findByAuthorID(authorid);
+        newCategory = categoryRepository.findByCategoryID(categoryid);
+
+        //add author for book
+        book.getAuthors().add(newAuthor);
+
+        //add category for book
+        book.getCategories().add(newCategory);
+
+        //add book to category and author
+        newCategory.getBooks().add(book);
+        newAuthor.getBooks().add(book);
+
         long id = bookService.create(book);
 
         obj.put("user", "User");
