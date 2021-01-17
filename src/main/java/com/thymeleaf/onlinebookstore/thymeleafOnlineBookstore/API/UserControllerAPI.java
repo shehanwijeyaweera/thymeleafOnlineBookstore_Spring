@@ -1,6 +1,6 @@
 package com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.API;
 
-import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.JSON.Checkout;
+import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.RequestLogin;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.model.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.repository.*;
 import com.thymeleaf.onlinebookstore.thymeleafOnlineBookstore.service.*;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,10 +72,6 @@ public class UserControllerAPI {
     private AuthorService authorService;
 
 
-
-
-
-
     @GetMapping("/books")
     public List<Book> getallbooks() {
         return bookService.getAllBooks();
@@ -87,32 +82,41 @@ public class UserControllerAPI {
         return bookService.findById(bookid);
     }
 
-    @GetMapping("/login/{username}/{password}")
-    public JSONObject login(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password) {
+    @PostMapping("/login")
+    public JSONObject login(@RequestBody RequestLogin requestLogin) {
         JSONObject obj = new JSONObject();
         User user = new User();
-        user = userRepository.findByUsername(username);
-        String pass = user.getPassword();
-        if (user != null) {
-            if (userService.passwordencode(password, pass)) {
 
-                obj.put("user", user);
-                obj.put("Response", "Correct");
-                obj.put("Role", user.getUserRole());
-                return obj;
-            } else {
+        try {
+            user = userRepository.findByUsername(requestLogin.getUsername());
 
-                obj.put("username", user.getUsername());
-                obj.put("userRole", user.getUserRole());
-                obj.put("Response", "Wrong");
-                return obj;
+            String pass = user.getPassword();
+            if (user != null) {
+                if (userService.passwordencode(requestLogin.getPassword(), pass)) {
+
+                    obj.put("user", user);
+                    obj.put("Response", "Correct");
+                    obj.put("Role", user.getUserRole());
+                    return obj;
+                } else {
+
+                    obj.put("username", user.getUsername());
+                    obj.put("userRole", user.getUserRole());
+                    obj.put("Response", "Wrong");
+                    return obj;
+                }
             }
-        } else {
+        } catch (Exception e) {
             obj.put("username", "Error");
             obj.put("userRole", "Error");
             obj.put("Response", "Error");
             return obj;
         }
+
+        obj.put("username", "Error");
+        obj.put("userRole", "Error");
+        obj.put("Response", "Error");
+        return obj;
 
     }
 
@@ -227,7 +231,7 @@ public class UserControllerAPI {
         String senderName = "OnlineBookStore team";
         String mailContent = "<p>Dear " + registrationDto.getUser_fName() + ",</p>";
         mailContent += "<p>Please Click the link below to verify to activate your account: </p>";
-        mailContent += "<a>http://192.168.8.120:8080/registration/verify/"+ registrationDto.getVerificationCode() +"/"+registrationDto.getUsername()+"</a>";
+        mailContent += "<a>http://192.168.8.120:8080/registration/verify/" + registrationDto.getVerificationCode() + "/" + registrationDto.getUsername() + "</a>";
         mailContent += "<p>Thank you <br> The OnlineBookStore Team </p>";
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -249,7 +253,7 @@ public class UserControllerAPI {
     }
 
     @PostMapping("/bookRequest")
-    public JSONObject bookRequestResponse(@RequestBody Requestbook requestbook){
+    public JSONObject bookRequestResponse(@RequestBody Requestbook requestbook) {
         JSONObject obj = new JSONObject();
         Requestbook requestbook1 = new Requestbook();
         requestbook1 = requestbook;
@@ -270,13 +274,13 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/user/refundReq/{user_id}")
-    public List<Refund> getAllCustomerRefundRequests(@PathVariable(value = "user_id")Long id){
+    public List<Refund> getAllCustomerRefundRequests(@PathVariable(value = "user_id") Long id) {
         List<Refund> refunds = refundRepository.getCustomerResponededreq(id);
         return refunds;
     }
 
     @PostMapping("user/refundReq/{order_id}/{user_id}")
-    public JSONObject RefundRequestResponse(@RequestBody Refund refund,@PathVariable(value = "order_id")Long id,@PathVariable(value = "user_id")Long user_id){
+    public JSONObject RefundRequestResponse(@RequestBody Refund refund, @PathVariable(value = "order_id") Long id, @PathVariable(value = "user_id") Long user_id) {
         JSONObject obj = new JSONObject();
         Refund refund1 = new Refund();
         refund1 = refund;
@@ -298,31 +302,31 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/user/getprofileInfo/{user_id}")
-    public User getUserprofileInfo(@PathVariable(value = "user_id")Long id){
+    public User getUserprofileInfo(@PathVariable(value = "user_id") Long id) {
         User user = userRepository.getUserbyId(id);
         return user;
     }
 
     @PostMapping("/user/updateprofile/{user_id}")
-    public JSONObject updateProfileInfo(@PathVariable(value = "user_id")Long id, @RequestBody User user){
+    public JSONObject updateProfileInfo(@PathVariable(value = "user_id") Long id, @RequestBody User user) {
         JSONObject obj = new JSONObject();
 
         //get current user data
         User currentUserDate = userRepository.getUserbyId(id);
 
         //update data with sent data
-        if(user.getUser_fName()!=null){
+        if (user.getUser_fName() != null) {
             currentUserDate.setUser_fName(user.getUser_fName());
         }
-        if(user.getUser_lName()!=null){
+        if (user.getUser_lName() != null) {
             currentUserDate.setUser_lName(user.getUser_lName());
         }
-        if(user.getUser_email()!=null){
+        if (user.getUser_email() != null) {
             currentUserDate.setUser_email(user.getUser_email());
         }
-            currentUserDate.setUser_phoneNo(user.getUser_phoneNo());
+        currentUserDate.setUser_phoneNo(user.getUser_phoneNo());
 
-        if(user.getUser_address()!=null){
+        if (user.getUser_address() != null) {
             currentUserDate.setUser_address(user.getUser_address());
         }
 
@@ -337,26 +341,26 @@ public class UserControllerAPI {
     }
 
     @PostMapping("/admin/updatebook/save/{bookId}")
-    public JSONObject updatebookDetails(@PathVariable(value = "bookId")Long bookId, @RequestBody Book book){
+    public JSONObject updatebookDetails(@PathVariable(value = "bookId") Long bookId, @RequestBody Book book) {
         JSONObject obj = new JSONObject();
 
         //get current book data
         Book currentBookData = bookRepository.findbyBookId(bookId);
 
         //update data with sent data
-        if(book.getTitle()!=null){
+        if (book.getTitle() != null) {
             currentBookData.setTitle(book.getTitle());
         }
-        if(book.getPubdate()!=null){
+        if (book.getPubdate() != null) {
             currentBookData.setPubdate(book.getPubdate());
         }
-        if(book.getDescription()!=null){
+        if (book.getDescription() != null) {
             currentBookData.setDescription(book.getDescription());
         }
-        if(book.getPublisher()!=null){
+        if (book.getPublisher() != null) {
             currentBookData.setPublisher(book.getPublisher());
         }
-        if(book.getPrice()!=null){
+        if (book.getPrice() != null) {
             currentBookData.setPrice(book.getPrice());
         }
 
@@ -369,24 +373,24 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/categories")
-    public List<Category> getAllCategories(){
+    public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
     @GetMapping("/admin/authors")
-    public List<Author> getAllAuthors(){
+    public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
     @PostMapping("/admin/updateCategory/{categoryid}")
-    public JSONObject updateCategoryDetails(@PathVariable(value = "categoryid")Long categoryID, @RequestBody Category category){
+    public JSONObject updateCategoryDetails(@PathVariable(value = "categoryid") Long categoryID, @RequestBody Category category) {
         JSONObject obj = new JSONObject();
 
         //get current category data
         Category currentCategoryData = categoryRepository.findByCategoryID(categoryID);
 
         //update data with sent data
-        if(category.getCategory_name()!=null){
+        if (category.getCategory_name() != null) {
             currentCategoryData.setCategory_name(category.getCategory_name());
         }
 
@@ -399,14 +403,14 @@ public class UserControllerAPI {
     }
 
     @PostMapping("/admin/updateAuthor/{authorid}")
-    public JSONObject updateAuthorDetails(@PathVariable(value = "authorid")Long authorID, @RequestBody Author author){
+    public JSONObject updateAuthorDetails(@PathVariable(value = "authorid") Long authorID, @RequestBody Author author) {
         JSONObject obj = new JSONObject();
 
         //get current author Data
         Author currentAuthorData = authorRepository.findByAuthorID(authorID);
 
         //update with sent data
-        if(author.getAuthor_name()!=null){
+        if (author.getAuthor_name() != null) {
             currentAuthorData.setAuthor_name(author.getAuthor_name());
         }
 
@@ -419,7 +423,7 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/deleteCategory/{categoryid}")
-    public JSONObject deleteCategory(@PathVariable(value = "categoryid")Long categoryID){
+    public JSONObject deleteCategory(@PathVariable(value = "categoryid") Long categoryID) {
         JSONObject obj = new JSONObject();
 
         //delete category
@@ -432,7 +436,7 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/deleteAuthor/{authorID}")
-    public JSONObject deleteAuthor(@PathVariable(value = "authorID")Long authorID){
+    public JSONObject deleteAuthor(@PathVariable(value = "authorID") Long authorID) {
         JSONObject obj = new JSONObject();
 
         //delete author
@@ -445,10 +449,10 @@ public class UserControllerAPI {
     }
 
     @PostMapping("/admin/addnewCategory/save")
-    public JSONObject addNewCategory(@RequestBody Category category){
+    public JSONObject addNewCategory(@RequestBody Category category) {
         JSONObject obj = new JSONObject();
 
-        if(category.getCategory_name()!=null) {
+        if (category.getCategory_name() != null) {
             categoryService.saveCategory(category);
         }
 
@@ -459,10 +463,10 @@ public class UserControllerAPI {
     }
 
     @PostMapping("/admin/addnewAuthor/save")
-    public JSONObject addNewAuthor(@RequestBody Author author){
+    public JSONObject addNewAuthor(@RequestBody Author author) {
         JSONObject obj = new JSONObject();
 
-        if(author.getAuthor_name()!=null){
+        if (author.getAuthor_name() != null) {
             authorService.saveAuthor(author);
         }
 
@@ -473,22 +477,22 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/getAllNonresponededRefundreq")
-    public List<Refund> getAllNonResponededRefundReq(){
+    public List<Refund> getAllNonResponededRefundReq() {
         return refundRepository.getAllNotResponedRefundReq();
     }
 
     @GetMapping("/admin/getAllRefundedRefunds")
-    public List<Refund> getAllRefundedRefunds(){
+    public List<Refund> getAllRefundedRefunds() {
         return refundRepository.getAllRefundedReqs();
     }
 
     @GetMapping("/admin/getAllRejectedRefunds")
-    public List<Refund> getAllRejectedRefunds(){
+    public List<Refund> getAllRejectedRefunds() {
         return refundRepository.getAllRejectedRefundReqs();
     }
 
     @GetMapping("/admin/acceptRequest/{refundId}")
-    public JSONObject acceptRequest(@PathVariable(value = "refundId")Long refundID){
+    public JSONObject acceptRequest(@PathVariable(value = "refundId") Long refundID) {
         JSONObject obj = new JSONObject();
         Refund refund = refundRepository.findRefundById(refundID);
         Customer_orders customer_orders = ordersRepository.findOrderbyId(refund.getCustomer_orders().getId());
@@ -506,7 +510,7 @@ public class UserControllerAPI {
     }
 
     @GetMapping("admin/rejectRequest/{refundId}")
-    public JSONObject rejectRequest(@PathVariable(value = "refundId")Long refundID){
+    public JSONObject rejectRequest(@PathVariable(value = "refundId") Long refundID) {
         JSONObject obj = new JSONObject();
 
         Refund refund = refundRepository.findRefundById(refundID);
@@ -525,12 +529,12 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/getAllBookRequests")
-    public List<Requestbook> getAllBookRequests(){
+    public List<Requestbook> getAllBookRequests() {
         return requestBookRepository.findAll();
     }
 
     @PostMapping("/admin/savebook/{categoryID}/{authorID}")
-    public JSONObject saveNewBook( @RequestBody Book book, @PathVariable(value = "categoryID") Long categoryid, @PathVariable(value = "authorID")Long  authorid) throws IOException {
+    public JSONObject saveNewBook(@RequestBody Book book, @PathVariable(value = "categoryID") Long categoryid, @PathVariable(value = "authorID") Long authorid) throws IOException {
         JSONObject obj = new JSONObject();
 
         Author newAuthor = new Author();
@@ -559,7 +563,7 @@ public class UserControllerAPI {
 
 
     @PostMapping("/admin/savebookImage/{bookId}")
-    public JSONObject saveBookImage(@PathVariable("bookId")Long bookID, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public JSONObject saveBookImage(@PathVariable("bookId") Long bookID, @RequestParam("file") MultipartFile multipartFile) throws IOException {
         JSONObject obj = new JSONObject();
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -577,7 +581,7 @@ public class UserControllerAPI {
 
         Path uploadPath = Paths.get(uploadDir);
 
-        if(!Files.exists(uploadPath)){
+        if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
         try {
@@ -586,9 +590,8 @@ public class UserControllerAPI {
             System.out.println(filePath.toFile().getAbsolutePath());
 
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e){
-            throw new IOException("could not save uploaded file: "+ fileName);
+        } catch (IOException e) {
+            throw new IOException("could not save uploaded file: " + fileName);
         }
 
 
@@ -599,7 +602,7 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/addBook/getSpinnerData")
-    public JSONObject sendSpinnerData(){
+    public JSONObject sendSpinnerData() {
         JSONObject obj = new JSONObject();
 
         obj.put("Category", categoryRepository.findAll());
@@ -609,12 +612,12 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/getAllusers")
-    public List<User> getAllUsers(){
-       return userRepository.findAll();
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @GetMapping("/admin/deleteUser/{userID}")
-    public JSONObject deleteUser(@PathVariable(value = "userID") Long userID){
+    public JSONObject deleteUser(@PathVariable(value = "userID") Long userID) {
         JSONObject obj = new JSONObject();
 
         User getUser = userRepository.getUserbyId(userID);
@@ -630,7 +633,7 @@ public class UserControllerAPI {
     }
 
     @GetMapping("/admin/markOrderAsShipped/{orderID}")
-    public JSONObject markOrderAsShipped(@PathVariable(value = "orderID")Long orderID){
+    public JSONObject markOrderAsShipped(@PathVariable(value = "orderID") Long orderID) {
         JSONObject obj = new JSONObject();
 
         Customer_orders customer_orders = new Customer_orders();
