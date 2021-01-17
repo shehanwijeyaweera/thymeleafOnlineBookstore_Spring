@@ -43,6 +43,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isUniqueEmailViolated(Long id, String email) {
+        boolean isuniqueEmailViolated = false;
+
+        User userByEmail = userRepository.getUserByEmail(email);
+        boolean isCreatingNew = (id == null || id == 0);
+
+        if(isCreatingNew){
+            if(userByEmail != null) isuniqueEmailViolated = true;
+        } else {
+            if(userByEmail.getId() != id){
+                isuniqueEmailViolated = true;
+            }
+        }
+        return isuniqueEmailViolated;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if(user== null){

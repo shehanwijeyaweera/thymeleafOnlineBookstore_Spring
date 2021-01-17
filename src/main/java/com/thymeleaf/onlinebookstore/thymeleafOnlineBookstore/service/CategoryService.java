@@ -9,4 +9,5 @@ public interface CategoryService {
     void saveCategory(Category category);
     Category getCategoryById(long category_id);
     void deleteCategoryById(long category_id);
+    String checkUnique(Long id, String name);
 }

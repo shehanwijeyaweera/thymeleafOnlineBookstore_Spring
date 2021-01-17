@@ -66,6 +66,7 @@ public class User {
         this.verificationCode = verificationCode;
     }
 
+
     public Long getId() {
         return id;
     }

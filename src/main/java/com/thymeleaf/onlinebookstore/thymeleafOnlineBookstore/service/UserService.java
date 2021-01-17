@@ -7,4 +7,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
     User save(UserRegistrationDto registrationDto);
     boolean passwordencode(String sentpassword, String password);
+    boolean isUniqueEmailViolated(Long id, String email);
 }

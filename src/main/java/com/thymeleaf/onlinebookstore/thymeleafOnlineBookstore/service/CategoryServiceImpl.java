@@ -41,4 +41,16 @@ public class CategoryServiceImpl implements CategoryService{
     public void deleteCategoryById(long category_id) {
         this.categoryRepository.deleteById(category_id);
     }
+
+    @Override
+    public String checkUnique(Long id, String name) {
+        boolean isCreatingNew = (id == null || id == 0);
+
+        Category categoryByName = categoryRepository.findByCategoryName(name);
+
+        if(isCreatingNew){
+            return "DuplicatedName";
+        }
+        return "Correct";
+    }
 }
